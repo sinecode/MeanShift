@@ -9,16 +9,12 @@ TEST(MeanShiftTest, TestPoint)
 }
 
 
-TEST(MeanShiftTest, EmptyCsvTest)
+TEST(MeanShiftTest, CsvTest)
 {
     std::vector<Point> points = getPointsFromCsv("../../test/empty.csv");
     ASSERT_EQ(points.size(), 0);
-}
 
-
-TEST(MeanShiftTest, NotEmptyCsvTest)
-{
-    std::vector<Point> points = getPointsFromCsv("../../test/test.csv");
+    points = getPointsFromCsv("../../test/test.csv");
     double expectedPoints[3][2] = {{1.1, 1.2},
                                    {2.1, 2.2},
                                    {3.1, 3.2}};
@@ -28,4 +24,18 @@ TEST(MeanShiftTest, NotEmptyCsvTest)
         ASSERT_EQ(points[0][1], expectedPoints[0][1]);
         ++i;
     } while (i < points.size());
+}
+
+
+TEST(MeanShiftTest, EuclideanDistanceTest)
+{
+    // points of different sizes
+    ASSERT_DEATH(euclideanDistance({1}, {3, 4}), "size");
+
+    // empty points
+    ASSERT_DEATH(euclideanDistance({}, {}), "size");
+
+    ASSERT_EQ(euclideanDistance({0, 0}, {0, 0}), 0);
+    ASSERT_EQ(euclideanDistance({8, 6}, {5, 2}), 5);
+    ASSERT_EQ(euclideanDistance({2, 2, 20}, {2, 2, 50}), 30);
 }
