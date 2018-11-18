@@ -37,3 +37,51 @@ double euclideanDistance(Point p1, Point p2)
         sum += std::pow(p1[i] - p2[i], 2);
     return std::sqrt(sum);
 }
+
+
+Point Cluster::getCentroid()
+{
+    return centroid;
+}
+
+void Cluster::addPoint(Point point)
+{
+    points.push_back(point);
+}
+
+double Cluster::getSse()
+{
+    double sum = 0.0;
+    for (Point p : points)
+        sum += std::pow(euclideanDistance(p, centroid), 2);
+    return sum;
+}
+
+
+void ClustersBuilder::shiftPoint(int index, Point newPosition)
+{
+    shiftedPoints[index] = newPosition;
+}
+
+std::vector<Cluster> ClustersBuilder::buildClusters()
+{
+    std::vector<Cluster> clusters;
+
+    for (int i = 0; i < shiftedPoints.size(); ++i) {
+        Point centroid = shiftedPoints[i];
+        bool found = false;
+        int j = 0;
+        while (!found && j < clusters.size()) {
+            if (clusters[j].getCentroid() == centroid)
+                found = true;
+            else
+                ++j;
+        }
+        if (found)
+            clusters[j].addPoint(originalPoints[i]);
+        else
+            clusters.push_back(Cluster(centroid));
+    }
+    return clusters;
+}
+
