@@ -33,6 +33,8 @@ public:
 
     long getSize();
 
+    std::vector<Point> getPoints();
+
     double getSse();
 
 private:
@@ -49,7 +51,15 @@ public:
         shiftedPoints = originalPoints;
     }
 
-    void shiftPoint(int index, Point newPosition);
+    Point &operator[](const long index)
+    {
+        return shiftedPoints[index];
+    }
+
+    const Point &operator[](const long index) const
+    {
+        return shiftedPoints[index];
+    }
 
     std::vector<Cluster> buildClusters();
 
@@ -57,6 +67,9 @@ private:
     std::vector<Point> originalPoints;
     std::vector<Point> shiftedPoints;
 };
+
+
+std::vector<Cluster> meanShift(std::vector<Point> points, double r, long maxIterations);
 
 
 #endif //MEANSHIFT_MEANSHIFT_H

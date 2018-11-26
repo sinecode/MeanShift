@@ -56,6 +56,11 @@ long Cluster::getSize()
     return points.size();
 }
 
+std::vector<Point> Cluster::getPoints()
+{
+    return points;
+}
+
 double Cluster::getSse()
 {
     double sum = 0.0;
@@ -64,11 +69,6 @@ double Cluster::getSse()
     return sum;
 }
 
-
-void ClustersBuilder::shiftPoint(int index, Point newPosition)
-{
-    shiftedPoints[index] = std::move(newPosition);
-}
 
 std::vector<Cluster> ClustersBuilder::buildClusters()
 {
@@ -87,5 +87,40 @@ std::vector<Cluster> ClustersBuilder::buildClusters()
         }
     }
     return clusters;
+}
+
+
+std::vector<Cluster> meanShift(std::vector<Point> points, double r, long maxIterations)
+{
+    ClustersBuilder builder = ClustersBuilder(points);
+    std::vector<bool> stopShifting(points.size(), false);
+    long j = 0;
+    long pointsCompleted = 0;
+    while (pointsCompleted < points.size() && j < maxIterations) {
+        for (long i = 0; i < points.size(); ++i) {
+            if (stopShifting[i])
+                continue;
+            std::vector<Point> neighbors;
+            for (long h = 0; h < points.size(); ++h) {
+                if (euclideanDistance(points[i], points[h]) <= r)
+                    neighbors.emplace_back(points[h]);
+            }
+            // calculate the new position of the point
+            Point newPosition;
+            for (long h = 0; h < points[0].size(); ++h) {
+                double sum = 0;
+                for (Point neighbor : neighbors)
+                    sum += neighbor[h];
+                newPosition.emplace_back(sum / neighbors.size());
+            }
+            if (builder[i] == newPosition) {
+                stopShifting[i] = true;
+                ++pointsCompleted;
+            } else
+                builder[i] = newPosition;
+            ++j;
+        }
+    }
+    return builder.buildClusters();
 }
 

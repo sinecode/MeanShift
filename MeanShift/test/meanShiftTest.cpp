@@ -41,6 +41,7 @@ TEST(MeanShiftTest, ClusterTest)
 
     ASSERT_EQ(cluster.getCentroid(), expectedCentroid);
     ASSERT_EQ(cluster.getSize(), 3);
+    ASSERT_EQ(cluster.getPoints(), points);
     ASSERT_NEAR(cluster.getSse(), 4, 0.00000000001);
 }
 
@@ -53,10 +54,10 @@ TEST(MeanShiftTest, ClustersBuilderTest)
     std::vector<Cluster> clusters = builder.buildClusters();
     ASSERT_EQ(clusters.size(), originalPoints.size());
 
-    builder.shiftPoint(0, {1, 1});
-    builder.shiftPoint(2, {1, 1});
-    builder.shiftPoint(3, {9, 9});
-    builder.shiftPoint(5, {9, 9});
+    builder[0] = {1, 1};
+    builder[2] = {1, 1};
+    builder[3] = {9, 9};
+    builder[5] = {9, 9};
     clusters = builder.buildClusters();
     ASSERT_EQ(clusters.size(), 2);
 
@@ -65,4 +66,28 @@ TEST(MeanShiftTest, ClustersBuilderTest)
 
     ASSERT_EQ(clusters[1].getCentroid(), Point({9, 9}));
     ASSERT_EQ(clusters[1].getSize(), 3);
+}
+
+
+TEST(MeanShiftTest, MeanShiftClusteringTest)
+{
+    std::vector<Point> points = {{1, 1}, {0.5, 0.5}, {1.5, 1.5}, {2, 2}, {1.5, 2}, {2, 1.5}, {0.5, 1}, {1, 0.5},
+            {0.0, 0.5}, {1.5, 1}, {11, 11}, {10.5, 10.5}, {11.5, 11.5}, {12, 12}, {11.5, 12}, {12, 11.5}, {10.5, 11},
+            {11, 10.5}, {10.0, 10.5}, {11.5, 11}};
+
+    std::vector<Cluster> clusters = meanShift(points, 4, 10000);
+    ASSERT_EQ(clusters.size(), 2);
+    std::vector<Point> firstCluster = {{1, 1}, {0.5, 0.5}, {1.5, 1.5}, {2, 2}, {1.5, 2}, {2, 1.5}, {0.5, 1}, {1, 0.5},
+            {0.0, 0.5}, {1.5, 1}};
+    ASSERT_EQ(clusters[0].getPoints(), firstCluster);
+    std::vector<Point> secondCluster = {{11, 11}, {10.5, 10.5}, {11.5, 11.5}, {12, 12}, {11.5, 12}, {12, 11.5},
+            {10.5, 11}, {11, 10.5}, {10.0, 10.5}, {11.5, 11}};
+    ASSERT_EQ(clusters[1].getPoints(), secondCluster);
+
+    clusters = meanShift(points, 20, 10000);
+    ASSERT_EQ(clusters.size(), 1);
+    ASSERT_EQ(clusters[0].getPoints(), points);
+
+    clusters = meanShift(points, 0.1, 10000);
+    ASSERT_EQ(clusters.size(), points.size());
 }
