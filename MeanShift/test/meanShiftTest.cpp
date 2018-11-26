@@ -15,23 +15,15 @@ TEST(MeanShiftTest, CsvTest)
     ASSERT_EQ(points.size(), 0);
 
     points = getPointsFromCsv("../../test/test.csv");
-    double expectedPoints[3][2] = {{1.1, 1.2}, {2.1, 2.2}, {3.1, 3.2}};
-    int i = 0;
-    do {
-        ASSERT_EQ(points[0][0], expectedPoints[0][0]);
-        ASSERT_EQ(points[0][1], expectedPoints[0][1]);
-        ++i;
-    } while (i < points.size());
+    ASSERT_EQ(points, std::vector<Point>({{1.1, 1.2}, {2.1, 2.2}, {3.1, 3.2}}));
 }
 
 
 TEST(MeanShiftTest, EuclideanDistanceTest)
 {
-    // points of different sizes
     ASSERT_DEATH(euclideanDistance({1}, {3, 4}), "size");
 
-    // empty points
-    ASSERT_DEATH(euclideanDistance({}, {}), "size");
+    ASSERT_DEATH(euclideanDistance({}, {}), "empty");
 
     ASSERT_NEAR(euclideanDistance({0, 0}, {0, 0}), 0, 0.0000000001);
     ASSERT_NEAR(euclideanDistance({8, 6}, {5, 2}), 5, 0.0000000001);
@@ -47,10 +39,8 @@ TEST(MeanShiftTest, ClusterTest)
     for (Point p : points)
         cluster.addPoint(p);
 
-    Point actualCentroid = cluster.getCentroid();
-    ASSERT_EQ(actualCentroid[0], expectedCentroid[0]);
-    ASSERT_EQ(actualCentroid[1], expectedCentroid[1]);
-
+    ASSERT_EQ(cluster.getCentroid(), expectedCentroid);
+    ASSERT_EQ(cluster.getSize(), 3);
     ASSERT_NEAR(cluster.getSse(), 4, 0.00000000001);
 }
 
@@ -69,8 +59,10 @@ TEST(MeanShiftTest, ClustersBuilderTest)
     builder.shiftPoint(5, {9, 9});
     clusters = builder.buildClusters();
     ASSERT_EQ(clusters.size(), 2);
-    ASSERT_EQ(clusters[0].getCentroid()[0], 1);
-    ASSERT_EQ(clusters[0].getCentroid()[1], 1);
-    ASSERT_EQ(clusters[1].getCentroid()[0], 9);
-    ASSERT_EQ(clusters[1].getCentroid()[1], 9);
+
+    ASSERT_EQ(clusters[0].getCentroid(), Point({1, 1}));
+    ASSERT_EQ(clusters[0].getSize(), 3);
+
+    ASSERT_EQ(clusters[1].getCentroid(), Point({9, 9}));
+    ASSERT_EQ(clusters[1].getSize(), 3);
 }

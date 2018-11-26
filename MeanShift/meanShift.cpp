@@ -1,9 +1,11 @@
+#include <utility>
 #include <vector>
 #include <sstream>
 #include <fstream>
 #include <string>
 #include <cmath>
 #include <cassert>
+#include <algorithm>
 
 #include "meanShift.h"
 
@@ -29,8 +31,8 @@ std::vector<Point> getPointsFromCsv(std::string fileName)
 
 double euclideanDistance(Point p1, Point p2)
 {
+    assert(!p1.empty() || !p2.empty());
     assert(p1.size() == p2.size());
-    assert(p1.size() > 0 && p2.size() > 0);
 
     double sum = 0.0;
     for (int i = 0; i < p1.size(); ++i)
@@ -46,13 +48,18 @@ Point Cluster::getCentroid()
 
 void Cluster::addPoint(Point point)
 {
-    points.push_back(point);
+    points.emplace_back(point);
+}
+
+long Cluster::getSize()
+{
+    return points.size();
 }
 
 double Cluster::getSse()
 {
     double sum = 0.0;
-    for (Point p : points)
+    for (const Point &p : points)
         sum += std::pow(euclideanDistance(p, centroid), 2);
     return sum;
 }
@@ -60,7 +67,7 @@ double Cluster::getSse()
 
 void ClustersBuilder::shiftPoint(int index, Point newPosition)
 {
-    shiftedPoints[index] = newPosition;
+    shiftedPoints[index] = std::move(newPosition);
 }
 
 std::vector<Cluster> ClustersBuilder::buildClusters()
@@ -69,18 +76,15 @@ std::vector<Cluster> ClustersBuilder::buildClusters()
 
     for (int i = 0; i < shiftedPoints.size(); ++i) {
         Point centroid = shiftedPoints[i];
-        bool found = false;
-        int j = 0;
-        while (!found && j < clusters.size()) {
-            if (clusters[j].getCentroid() == centroid)
-                found = true;
-            else
-                ++j;
+        auto it = std::find(clusters.begin(), clusters.end(), Cluster(centroid));
+        if (it != clusters.end())
+            it->addPoint(originalPoints[i]);
+        else {
+            Cluster cluster = Cluster(centroid);
+            cluster.addPoint(originalPoints[i]);
+            clusters.emplace_back(cluster);
+
         }
-        if (found)
-            clusters[j].addPoint(originalPoints[i]);
-        else
-            clusters.push_back(Cluster(centroid));
     }
     return clusters;
 }

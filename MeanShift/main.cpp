@@ -1,10 +1,13 @@
+#include <cassert>
+#include <vector>
 #include <iostream>
-#include <sstream>
-#include <fstream>
-#include <string>
+#include <algorithm>
+
+#include "meanShift.h"
 
 
 int main()
 {
+
     return 0;
 }

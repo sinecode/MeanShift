@@ -1,6 +1,7 @@
 #ifndef MEANSHIFT_MEANSHIFT_H
 #define MEANSHIFT_MEANSHIFT_H
 
+#include <utility>
 #include <vector>
 #include <string>
 
@@ -16,14 +17,21 @@ double euclideanDistance(Point p1, Point p2);
 
 class Cluster {
 public:
-    Cluster(Point centroid)
+    explicit Cluster(Point centroid)
     {
-        this->centroid = centroid;
+        this->centroid = std::move(centroid);
     }
 
     Point getCentroid();
 
+    bool operator==(const Cluster &c2) const
+    {
+        return this->centroid == c2.centroid;
+    }
+
     void addPoint(Point point);
+
+    long getSize();
 
     double getSse();
 
@@ -35,7 +43,7 @@ private:
 
 class ClustersBuilder {
 public:
-    ClustersBuilder(std::vector<Point> originalPoints)
+    explicit ClustersBuilder(const std::vector<Point> &originalPoints)
     {
         this->originalPoints = originalPoints;
         shiftedPoints = originalPoints;
@@ -49,9 +57,6 @@ private:
     std::vector<Point> originalPoints;
     std::vector<Point> shiftedPoints;
 };
-
-
-std::vector<Cluster> cluster(std::vector<Point> points);
 
 
 #endif //MEANSHIFT_MEANSHIFT_H
