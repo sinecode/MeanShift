@@ -31,6 +31,22 @@ std::vector<Point> getPointsFromCsv(std::string fileName)
 }
 
 
+void writeClustersToCsv(std::vector<Cluster> &clusters)
+{
+    std::ofstream outputFile("out.csv");
+    int clusterId = 0;
+    for (auto &cluster : clusters) {
+        for (auto &point : cluster) {
+            for (auto &value : point) {
+                outputFile << value << ",";
+            }
+            outputFile << clusterId << "\n";
+        }
+        ++clusterId;
+    }
+}
+
+
 std::vector<Cluster> meanShift(std::vector<Point> points, double r, long long maxIterations)
 {
     ClustersBuilder builder = ClustersBuilder(points);
@@ -42,9 +58,9 @@ std::vector<Cluster> meanShift(std::vector<Point> points, double r, long long ma
             if (stopShifting[i])
                 continue;
             std::vector<Point> neighbors;
-            for (long h = 0; h < points.size(); ++h) {
-                if (builder[i].euclideanDistance(points[h]) <= r)
-                    neighbors.emplace_back(points[h]);
+            for (auto &point : points) {
+                if (builder[i].euclideanDistance(point) <= r)
+                    neighbors.emplace_back(point);
             }
             // calculate the new position of the point
             std::vector<double> newpos;
@@ -63,6 +79,8 @@ std::vector<Cluster> meanShift(std::vector<Point> points, double r, long long ma
         }
         ++j;
     }
+    if (j == maxIterations)
+        std::cout << "WARNING: reached the maximum number of iterations" << std::endl;
     return builder.buildClusters();
 }
 
