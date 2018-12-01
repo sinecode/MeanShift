@@ -47,36 +47,43 @@ void writeClustersToCsv(std::vector<Cluster> &clusters)
 }
 
 
-std::vector<Cluster> meanShift(std::vector<Point> points, double r, long long maxIterations)
+std::vector<Cluster> meanShift(std::vector<Point> points, double bandWidth, long long maxIterations)
 {
     ClustersBuilder builder = ClustersBuilder(points);
+    // vector of booleans such that the element in position i is true if the i-th point
+    // has stopped to shift
     std::vector<bool> stopShifting(points.size(), false);
     long j = 0;
     long pointsCompleted = 0;
+    long dimensions = points[0].dimensions();
     while (pointsCompleted < points.size() && j < maxIterations) {
+#pragma omp parallel for default(none) \
+shared(j, pointsCompleted, dimensions, points, stopShifting, builder, bandWidth)
         for (long i = 0; i < points.size(); ++i) {
             if (stopShifting[i])
                 continue;
             std::vector<Point> neighbors;
             for (auto &point : points) {
-                if (builder[i].euclideanDistance(point) <= r)
+                if (builder[i].euclideanDistance(point) <= bandWidth)
                     neighbors.emplace_back(point);
             }
             // calculate the new position of the point
-            std::vector<double> newpos;
-            for (long h = 0; h < points[0].dimensions(); ++h) {
+            std::vector<double> newPos;
+            for (long h = 0; h < dimensions; ++h) {
                 double sum = 0;
-                for (Point neighbor : neighbors)
-                    sum += neighbor[h];
-                newpos.emplace_back(sum / neighbors.size());
+                for (auto &point : neighbors)
+                    sum += point[h];
+                newPos.emplace_back(sum / neighbors.size());
             }
-            Point newPosition(newpos);
+            Point newPosition(newPos);
             if (builder[i] == newPosition) {
                 stopShifting[i] = true;
+#pragma omp atomic
                 ++pointsCompleted;
             } else
                 builder[i] = newPosition;
         }
+#pragma omp atomic
         ++j;
     }
     if (j == maxIterations)

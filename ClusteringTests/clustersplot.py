@@ -7,12 +7,12 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 
-def main():
-    # go to the directory where this script is located
-    os.chdir(os.path.dirname('./' + sys.argv[0]))
+MEAN_SHIFT_EXECUTABLE_PATH = '../MeanShift/cmake-build-release/meanshift'
 
+
+def main():
     out = subprocess.check_call(
-        '../MeanShift/cmake-build-release/meanshift datasets/data5.csv 3',
+        f'{MEAN_SHIFT_EXECUTABLE_PATH} {sys.argv[1]} {sys.argv[2]}',
         shell=True
     )
     data = np.genfromtxt('out.csv', delimiter=',')
