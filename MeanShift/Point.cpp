@@ -16,16 +16,6 @@ Point::Point(std::initializer_list<double> values)
     this->values.assign(values);
 }
 
-double &Point::operator[](const long index)
-{
-    return values[index];
-}
-
-const double &Point::operator[](const long index) const
-{
-    return values[index];
-}
-
 bool Point::operator==(const Point &p) const
 {
     return this->values == p.values;
@@ -34,6 +24,72 @@ bool Point::operator==(const Point &p) const
 bool Point::operator!=(const Point &p) const
 {
     return this->values != p.values;
+}
+
+Point Point::operator+(const Point &p)
+{
+    Point point(this->values);
+    return point += p;
+}
+
+Point &Point::operator+=(const Point &p)
+{
+    assert(p.dimensions() == dimensions());
+
+    for (long i = 0; i < p.dimensions(); ++i)
+        this->values[i] += p[i];
+    return *this;
+}
+
+Point Point::operator-(const Point &p)
+{
+    Point point(this->values);
+    return point -= p;
+}
+
+Point &Point::operator-=(const Point &p)
+{
+    assert(p.dimensions() == dimensions());
+
+    for (long i = 0; i < p.dimensions(); ++i)
+        this->values[i] -= p[i];
+    return *this;
+}
+
+Point Point::operator*(const double d)
+{
+    Point point(this->values);
+    return point *= d;
+}
+
+Point &Point::operator*=(const double d)
+{
+    for (long i = 0; i < dimensions(); ++i)
+        this->values[i] *= d;
+    return *this;
+}
+
+Point Point::operator/(const double d)
+{
+    Point point(this->values);
+    return point /= d;
+}
+
+Point &Point::operator/=(const double d)
+{
+    for (long i = 0; i < dimensions(); ++i)
+        this->values[i] /= d;
+    return *this;
+}
+
+double &Point::operator[](const long index)
+{
+    return values[index];
+}
+
+const double &Point::operator[](const long index) const
+{
+    return values[index];
 }
 
 long Point::dimensions() const

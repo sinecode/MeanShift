@@ -62,20 +62,18 @@ shared(j, pointsCompleted, dimensions, points, stopShifting, builder, bandWidth)
         for (long i = 0; i < points.size(); ++i) {
             if (stopShifting[i])
                 continue;
-            std::vector<Point> neighbors;
+
+            Point newPosition(std::vector<double>(dimensions, 0));
+            long neighbors = 0;
             for (auto &point : points) {
-                if (builder[i].euclideanDistance(point) <= bandWidth)
-                    neighbors.emplace_back(point);
+                if (builder[i].euclideanDistance(point) <= bandWidth) {
+                    newPosition += point;
+                    ++neighbors;
+                }
             }
-            // calculate the new position of the point
-            std::vector<double> newPos;
-            for (long h = 0; h < dimensions; ++h) {
-                double sum = 0;
-                for (auto &point : neighbors)
-                    sum += point[h];
-                newPos.emplace_back(sum / neighbors.size());
-            }
-            Point newPosition(newPos);
+
+            // the new position of the point is the average of its neighbors
+            newPosition /= neighbors;
             if (builder[i] == newPosition) {
                 stopShifting[i] = true;
 #pragma omp atomic

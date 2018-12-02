@@ -13,13 +13,29 @@ public:
 
     Point() = default;
 
-    double &operator[](long index);
-
-    const double &operator[](long index) const;
-
     bool operator==(const Point &p) const;
 
     bool operator!=(const Point &p) const;
+
+    Point operator+(const Point &p);
+
+    Point &operator+=(const Point &p);
+
+    Point operator-(const Point &p);
+
+    Point &operator-=(const Point &p);
+
+    Point operator*(double d);
+
+    Point &operator*=(double d);
+
+    Point operator/(double d);
+
+    Point &operator/=(double d);
+
+    double &operator[](long index);
+
+    const double &operator[](long index) const;
 
     long dimensions() const;
 

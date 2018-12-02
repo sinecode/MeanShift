@@ -1,2 +1,3 @@
 MeanShift/.idea
 MeanShift/cmake-build*
+*.log

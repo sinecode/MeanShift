@@ -12,7 +12,7 @@ MEAN_SHIFT_EXECUTABLE_PATH = '../MeanShift/cmake-build-release/meanshift'
 
 def main():
     out = subprocess.check_call(
-        f'{MEAN_SHIFT_EXECUTABLE_PATH} {sys.argv[1]} {sys.argv[2]}',
+        f'{MEAN_SHIFT_EXECUTABLE_PATH} {sys.argv[1]} {sys.argv[2]} --verbose',
         shell=True
     )
     data = np.genfromtxt('out.csv', delimiter=',')
