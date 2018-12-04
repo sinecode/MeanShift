@@ -2,6 +2,12 @@
 #include <string>
 #include <chrono>
 
+#ifdef _OPENMP
+
+#include <omp.h>
+
+#endif
+
 #include "Point.hpp"
 #include "meanShift.hpp"
 
@@ -20,7 +26,11 @@ int main(int argc, char **argv)
 
     std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
 
-    std::vector<Cluster> clusters = meanShift(points, bandwidth);
+    int num_threads = 1;
+#ifdef _OPENMP
+    num_threads = omp_get_num_procs();
+#endif
+    std::vector<Cluster> clusters = meanShift(points, bandwidth, num_threads);
 
     std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
     double elapsedTime = std::chrono::duration_cast<std::chrono::duration<double>>(end - start).count();
