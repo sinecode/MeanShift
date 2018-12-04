@@ -1,18 +1,18 @@
 #include <gtest/gtest.h>
 
-#include "../Point.h"
-#include "../ClustersBuilder.h"
+#include "../Point.hpp"
+#include "../ClustersBuilder.hpp"
 
 
 TEST(ClustersBuilderTest, subscriptOperatorTest)
 {
     std::vector<Point> originalPoints = {{1, 2}, {3, 4}};
     ClustersBuilder builder(originalPoints);
-    ASSERT_EQ(builder[0], Point({1, 2}));
-    ASSERT_EQ(builder[1], Point({3, 4}));
+    ASSERT_EQ(builder.getShiftedPoint(0), Point({1, 2}));
+    ASSERT_EQ(builder.getShiftedPoint(1), Point({3, 4}));
 
-    builder[0] = {5, 5};
-    ASSERT_EQ(builder[0], Point({5, 5}));
+    builder.shiftPoint(0, {5, 5});
+    ASSERT_EQ(builder.getShiftedPoint(0), Point({5, 5}));
 }
 
 
@@ -24,10 +24,10 @@ TEST(ClustersBuilderTest, buildClustersTest)
     std::vector<Cluster> clusters = builder.buildClusters();
     ASSERT_EQ(clusters.size(), originalPoints.size());
 
-    builder[0] = {1, 1};
-    builder[2] = {1, 1};
-    builder[3] = {9, 9};
-    builder[5] = {9, 9};
+    builder.shiftPoint(0, {1, 1});
+    builder.shiftPoint(2, {1, 1});
+    builder.shiftPoint(3, {9, 9});
+    builder.shiftPoint(5, {9, 9});
     clusters = builder.buildClusters();
     ASSERT_EQ(clusters.size(), 2);
 

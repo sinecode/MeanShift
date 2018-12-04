@@ -1,25 +1,26 @@
 #include <algorithm>
 #include <vector>
 
-#include "Point.h"
-#include "Cluster.h"
-#include "ClustersBuilder.h"
+#include "Point.hpp"
+#include "Cluster.hpp"
+#include "ClustersBuilder.hpp"
 
 
 ClustersBuilder::ClustersBuilder(const std::vector<Point> &originalPoints)
 {
+    this->clusterEps = clusterEps;
     this->originalPoints = originalPoints;
     shiftedPoints = originalPoints;
 }
 
-Point &ClustersBuilder::operator[](const long index)
+Point &ClustersBuilder::getShiftedPoint(long index)
 {
     return shiftedPoints[index];
 }
 
-const Point &ClustersBuilder::operator[](const long index) const
+void ClustersBuilder::shiftPoint(const long index, const Point &newPosition)
 {
-    return shiftedPoints[index];
+    shiftedPoints[index] = newPosition;
 }
 
 std::vector<Point>::iterator ClustersBuilder::begin() {

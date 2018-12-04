@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../Point.h"
+#include "../Point.hpp"
 
 
 #define ABS_ERROR 0.0000000001

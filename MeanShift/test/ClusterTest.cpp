@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "../Cluster.h"
-#include "../Point.h"
+#include "../Cluster.hpp"
+#include "../Point.hpp"
 
 
 #define ABS_ERROR 0.00000000001
@@ -18,7 +18,7 @@ TEST(ClusterTest, centroidTest)
 TEST(ClusterTest, equalityTest)
 {
     Cluster c1({1, 1});
-    Cluster c2({1, 1});
+    Cluster c2({0.999999, 1.111111});
     ASSERT_EQ(c1, c2);
 
     c2 = Cluster({0, 1});

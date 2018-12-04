@@ -3,16 +3,16 @@
 
 #include <vector>
 
-#include "Point.h"
-#include "Cluster.h"
+#include "Point.hpp"
+#include "Cluster.hpp"
 
 class ClustersBuilder {
 public:
     explicit ClustersBuilder(const std::vector<Point> &originalPoints);
 
-    Point &operator[](long index);
+    Point &getShiftedPoint(long index);
 
-    const Point &operator[](long index) const;
+    void shiftPoint(long index, const Point &newPosition);
 
     std::vector<Point>::iterator begin();
 
@@ -23,6 +23,7 @@ public:
 private:
     std::vector<Point> originalPoints;
     std::vector<Point> shiftedPoints;
+    double clusterEps;
 };
 
 

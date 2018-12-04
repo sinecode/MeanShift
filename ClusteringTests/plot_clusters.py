@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 
-MEAN_SHIFT_EXECUTABLE_PATH = '../MeanShift/cmake-build-release/meanshift'
+MEAN_SHIFT_EXECUTABLE_PATH = '../MeanShift/cmake-build-releasepar/meanshift'
 
 
 def main():

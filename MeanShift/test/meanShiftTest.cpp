@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "../Point.h"
-#include "../meanShift.h"
+#include "../Point.hpp"
+#include "../meanShift.hpp"
 
 
 TEST(MeanShiftTest, getPointsFromCsvTest)
@@ -21,7 +21,7 @@ TEST(MeanShiftTest, meanShiftTest)
             {11, 10.5}, {10.0, 10.5}, {11.5, 11}};
 
     // two clusters
-    std::vector<Cluster> clusters = meanShift(points, 4);
+    std::vector<Cluster> clusters = meanShift(points, 1.0);
     ASSERT_EQ(clusters.size(), 2);
     std::vector<Point> expectedFirstCluster = {{1, 1}, {0.5, 0.5}, {1.5, 1.5}, {2, 2}, {1.5, 2}, {2, 1.5}, {0.5, 1},
             {1, 0.5}, {0.0, 0.5}, {1.5, 1}};
@@ -33,13 +33,13 @@ TEST(MeanShiftTest, meanShiftTest)
     ASSERT_EQ(actualSecondCluster, expectedSecondCluster);
 
     // one cluster with all the points
-    clusters = meanShift(points, 20);
+    clusters = meanShift(points, 10.0);
     ASSERT_EQ(clusters.size(), 1);
     std::vector<Point> actualCluster = std::vector<Point>(clusters[0].begin(), clusters[0].end());
     ASSERT_EQ(actualCluster, points);
 
     // each point is a separated cluster
-    clusters = meanShift(points, 0.1);
+    clusters = meanShift(points, 0.001);
     ASSERT_EQ(clusters.size(), points.size());
     for (auto &cluster : clusters)
         ASSERT_EQ(cluster.getSse(), 0);

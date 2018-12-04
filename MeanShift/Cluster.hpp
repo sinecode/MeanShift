@@ -3,7 +3,10 @@
 
 #include <vector>
 
-#include "Point.h"
+#include "Point.hpp"
+
+
+#define CLUSTER_EPS 0.5
 
 
 class Cluster {

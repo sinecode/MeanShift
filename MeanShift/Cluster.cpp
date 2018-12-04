@@ -1,8 +1,8 @@
 #include <cmath>
 #include <vector>
 
-#include "Cluster.h"
-#include "Point.h"
+#include "Cluster.hpp"
+#include "Point.hpp"
 
 Cluster::Cluster(Point centroid)
 {
@@ -16,12 +16,12 @@ Point Cluster::getCentroid() const
 
 bool Cluster::operator==(const Cluster &c) const
 {
-    return this->centroid == c.centroid;
+    return this->centroid.euclideanDistance(c.centroid) < CLUSTER_EPS;
 }
 
 bool Cluster::operator!=(const Cluster &c) const
 {
-    return this->centroid != c.centroid;
+    return this->centroid.euclideanDistance(c.centroid) >= CLUSTER_EPS;
 }
 
 void Cluster::addPoint(Point point)

@@ -5,11 +5,12 @@
 #include <string>
 #include <algorithm>
 #include <iostream>
+#include <cmath>
 
-#include "Point.h"
-#include "Cluster.h"
-#include "ClustersBuilder.h"
-#include "meanShift.h"
+#include "Point.hpp"
+#include "Cluster.hpp"
+#include "ClustersBuilder.hpp"
+#include "meanShift.hpp"
 
 
 std::vector<Point> getPointsFromCsv(std::string fileName)
@@ -47,7 +48,7 @@ void writeClustersToCsv(std::vector<Cluster> &clusters)
 }
 
 
-std::vector<Cluster> meanShift(std::vector<Point> points, double bandWidth, long long maxIterations)
+std::vector<Cluster> meanShift(std::vector<Point> points, double bandwidth, int num_threads)
 {
     ClustersBuilder builder = ClustersBuilder(points);
     // vector of booleans such that the element in position i is true if the i-th point
@@ -56,35 +57,40 @@ std::vector<Cluster> meanShift(std::vector<Point> points, double bandWidth, long
     long j = 0;
     long pointsCompleted = 0;
     long dimensions = points[0].dimensions();
-    while (pointsCompleted < points.size() && j < maxIterations) {
+    double radius = bandwidth * 3;
+    while (pointsCompleted < points.size() && j < MAX_ITERATIONS) {
 #pragma omp parallel for default(none) \
-shared(j, pointsCompleted, dimensions, points, stopShifting, builder, bandWidth)
+shared(j, pointsCompleted, dimensions, points, stopShifting, builder, bandwidth, radius) \
+num_threads(num_threads)
         for (long i = 0; i < points.size(); ++i) {
             if (stopShifting[i])
                 continue;
 
             Point newPosition(std::vector<double>(dimensions, 0));
-            long neighbors = 0;
+            double totalWeight = 0.0;
             for (auto &point : points) {
-                if (builder[i].euclideanDistance(point) <= bandWidth) {
-                    newPosition += point;
-                    ++neighbors;
+                double distance = builder.getShiftedPoint(i).euclideanDistance(point);
+                if (distance <= radius) {
+                    double gaussian = std::exp(-(distance * distance) / (2 * bandwidth * bandwidth));
+                    newPosition += point * gaussian;
+                    totalWeight += gaussian;
                 }
             }
 
-            // the new position of the point is the average of its neighbors
-            newPosition /= neighbors;
-            if (builder[i] == newPosition) {
+            // the new position of the point is the weighted average of its neighbors
+            newPosition /= totalWeight;
+
+            if (builder.getShiftedPoint(i).euclideanDistance(newPosition) < CLUSTER_EPS / 10) {
                 stopShifting[i] = true;
 #pragma omp atomic
                 ++pointsCompleted;
             } else
-                builder[i] = newPosition;
+                builder.shiftPoint(i, newPosition);
         }
 #pragma omp atomic
         ++j;
     }
-    if (j == maxIterations)
+    if (j == MAX_ITERATIONS)
         std::cout << "WARNING: reached the maximum number of iterations" << std::endl;
     return builder.buildClusters();
 }

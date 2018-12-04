@@ -4,11 +4,11 @@
 #include <vector>
 #include <string>
 
-#include "Point.h"
-#include "Cluster.h"
+#include "Point.hpp"
+#include "Cluster.hpp"
 
 
-#define MAX_IT 100000000000
+#define MAX_ITERATIONS 10000
 
 
 std::vector<Point> getPointsFromCsv(std::string fileName);
@@ -17,7 +17,7 @@ std::vector<Point> getPointsFromCsv(std::string fileName);
 void writeClustersToCsv(std::vector<Cluster> &clusters);
 
 
-std::vector<Cluster> meanShift(std::vector<Point> points, double bandWidth, long long maxIterations = MAX_IT);
+std::vector<Cluster> meanShift(std::vector<Point> points, double bandwidth, int num_threads = 1);
 
 
 #endif //MEANSHIFT_MEANSHIFT_H

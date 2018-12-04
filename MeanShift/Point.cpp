@@ -3,7 +3,7 @@
 #include <vector>
 #include <initializer_list>
 
-#include "Point.h"
+#include "Point.hpp"
 
 
 Point::Point(std::vector<double> values)
