@@ -1,9 +1,7 @@
-#include <utility>
 #include <vector>
 #include <sstream>
 #include <fstream>
 #include <string>
-#include <algorithm>
 #include <iostream>
 #include <cmath>
 
@@ -48,22 +46,16 @@ void writeClustersToCsv(std::vector<Cluster> &clusters)
 }
 
 
-std::vector<Cluster> meanShift(std::vector<Point> points, double bandwidth, int num_threads)
+std::vector<Cluster> meanShift(std::vector<Point> points, double bandwidth, int threads)
 {
-    ClustersBuilder builder = ClustersBuilder(points);
-    // vector of booleans such that the element in position i is true if the i-th point
-    // has stopped to shift
-    std::vector<bool> stopShifting(points.size(), false);
+    ClustersBuilder builder = ClustersBuilder(points, 0.4);
     long j = 0;
-    long pointsCompleted = 0;
     long dimensions = points[0].dimensions();
     double radius = bandwidth * 3;
-    while (pointsCompleted < points.size() && j < MAX_ITERATIONS) {
-#pragma omp parallel for default(none) \
-shared(j, pointsCompleted, dimensions, points, stopShifting, builder, bandwidth, radius) \
-num_threads(num_threads)
+    while (!builder.stopShiftingAll() && j < MAX_ITERATIONS) {
+#pragma omp parallel for default(none) shared(j, points, dimensions, builder, bandwidth, radius) num_threads(threads)
         for (long i = 0; i < points.size(); ++i) {
-            if (stopShifting[i])
+            if (builder.stopShifting(i))
                 continue;
 
             Point newPosition(std::vector<double>(dimensions, 0));
@@ -79,15 +71,9 @@ num_threads(num_threads)
 
             // the new position of the point is the weighted average of its neighbors
             newPosition /= totalWeight;
-
-            if (builder.getShiftedPoint(i).euclideanDistance(newPosition) < CLUSTER_EPS / 10) {
-                stopShifting[i] = true;
-#pragma omp atomic
-                ++pointsCompleted;
-            } else
-                builder.shiftPoint(i, newPosition);
+#pragma omp critical
+            builder.shiftPoint(i, newPosition);
         }
-#pragma omp atomic
         ++j;
     }
     if (j == MAX_ITERATIONS)

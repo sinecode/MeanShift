@@ -1,12 +1,9 @@
-#ifndef MEANSHIFT_CLUSTER_H
-#define MEANSHIFT_CLUSTER_H
+#ifndef MEANSHIFT_CLUSTER_HPP
+#define MEANSHIFT_CLUSTER_HPP
 
 #include <vector>
 
 #include "Point.hpp"
-
-
-#define CLUSTER_EPS 0.5
 
 
 class Cluster {
@@ -14,10 +11,6 @@ public:
     explicit Cluster(Point centroid);
 
     Point getCentroid() const;
-
-    bool operator==(const Cluster &c) const;
-
-    bool operator!=(const Cluster &c) const;
 
     void addPoint(Point point);
 
@@ -35,4 +28,4 @@ private:
 };
 
 
-#endif //MEANSHIFT_CLUSTER_H
+#endif //MEANSHIFT_CLUSTER_HPP

@@ -15,17 +15,6 @@ TEST(ClusterTest, centroidTest)
 }
 
 
-TEST(ClusterTest, equalityTest)
-{
-    Cluster c1({1, 1});
-    Cluster c2({0.999999, 1.111111});
-    ASSERT_EQ(c1, c2);
-
-    c2 = Cluster({0, 1});
-    ASSERT_NE(c1, c2);
-}
-
-
 TEST(ClusterTest, sizeTest)
 {
     Cluster cluster = Cluster({1, 1});

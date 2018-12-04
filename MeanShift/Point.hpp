@@ -1,5 +1,5 @@
-#ifndef MEANSHIFT_POINT_H
-#define MEANSHIFT_POINT_H
+#ifndef MEANSHIFT_POINT_HPP
+#define MEANSHIFT_POINT_HPP
 
 #include <vector>
 #include <initializer_list>
@@ -49,4 +49,4 @@ private:
     std::vector<double> values;
 };
 
-#endif //MEANSHIFT_POINT_H
+#endif //MEANSHIFT_POINT_HPP

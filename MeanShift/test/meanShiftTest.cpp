@@ -39,7 +39,7 @@ TEST(MeanShiftTest, meanShiftTest)
     ASSERT_EQ(actualCluster, points);
 
     // each point is a separated cluster
-    clusters = meanShift(points, 0.001);
+    clusters = meanShift(points, 0.00001);
     ASSERT_EQ(clusters.size(), points.size());
     for (auto &cluster : clusters)
         ASSERT_EQ(cluster.getSse(), 0);

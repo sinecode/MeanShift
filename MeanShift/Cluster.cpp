@@ -14,16 +14,6 @@ Point Cluster::getCentroid() const
     return centroid;
 }
 
-bool Cluster::operator==(const Cluster &c) const
-{
-    return this->centroid.euclideanDistance(c.centroid) < CLUSTER_EPS;
-}
-
-bool Cluster::operator!=(const Cluster &c) const
-{
-    return this->centroid.euclideanDistance(c.centroid) >= CLUSTER_EPS;
-}
-
 void Cluster::addPoint(Point point)
 {
     points.emplace_back(point);

@@ -26,7 +26,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66f9a511-8e79-4910-9ae5-b27667c781bd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cluster.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Cluster.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClustersBuilder.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ClustersBuilder.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClustersBuilder.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/ClustersBuilder.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Point.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Point.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/meanShift.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/meanShift.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/ClusterTest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test/ClusterTest.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/ClustersBuilderTest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test/ClustersBuilderTest.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/PointTest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test/PointTest.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/meanShiftTest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test/meanShiftTest.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/cmake-build-release/" />
@@ -57,11 +66,12 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="cc" value="1" />
-          <entry key="cpp" value="129" />
+          <entry key="cpp" value="147" />
           <entry key="csv" value="8" />
-          <entry key="h" value="51" />
-          <entry key="hpp" value="7" />
+          <entry key="h" value="67" />
+          <entry key="hpp" value="18" />
           <entry key="meanshift (disassembly)" value="1" />
+          <entry key="new" value="1" />
           <entry key="txt" value="24" />
         </counts>
       </usages-collector>
@@ -70,16 +80,16 @@
           <entry key="CMakeLists.txt" value="24" />
           <entry key="CSV" value="7" />
           <entry key="Disassembly" value="1" />
-          <entry key="ObjectiveC" value="188" />
+          <entry key="ObjectiveC" value="234" />
           <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cpp" value="14087" />
+          <entry key="cpp" value="15634" />
           <entry key="csv" value="179" />
           <entry key="h" value="2046" />
-          <entry key="hpp" value="237" />
+          <entry key="hpp" value="501" />
           <entry key="txt" value="1044" />
         </counts>
       </usages-collector>
@@ -87,12 +97,12 @@
         <counts>
           <entry key="CMakeLists.txt" value="1044" />
           <entry key="CSV" value="179" />
-          <entry key="ObjectiveC" value="16370" />
+          <entry key="ObjectiveC" value="18181" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.cidr.testingFrameworks.usages">
         <counts>
-          <entry key="Google Test" value="207" />
+          <entry key="Google Test" value="246" />
         </counts>
       </usages-collector>
     </session>
@@ -100,13 +110,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/batchTest.cpp">
+        <entry file="file://$PROJECT_DIR$/meanShift.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="648">
-              <caret line="33" column="89" lean-forward="true" selection-start-line="32" selection-start-column="55" selection-end-line="33" selection-end-column="89" />
-              <folding>
-                <element signature="e#0#19#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="405">
+              <caret line="19" column="95" selection-start-line="19" selection-start-column="95" selection-end-line="19" selection-end-column="95" />
             </state>
           </provider>
         </entry>
@@ -114,20 +121,46 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/meanShift.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+            <state relative-caret-position="-100">
+              <caret line="55" column="57" selection-start-line="55" selection-start-column="57" selection-end-line="55" selection-end-column="57" />
+              <folding>
+                <element signature="e#0#17#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/main.cpp">
+        <entry file="file://$PROJECT_DIR$/test/PointTest.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="26" column="50" selection-start-line="26" selection-start-column="50" selection-end-line="26" selection-end-column="50" />
+            <state relative-caret-position="413">
+              <caret line="37" column="6" selection-start-line="37" selection-start-column="6" selection-end-line="37" selection-end-column="6" />
               <folding>
-                <element signature="e#0#19#0" expanded="true" />
-                <element signature="e#99#119#0" expanded="true" />
+                <element signature="e#550#605#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/meanShiftTest.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1107">
+              <caret line="41" selection-start-line="41" selection-end-line="41" />
+              <folding>
+                <element signature="e#0#24#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ClustersBuilder.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="6" selection-start-line="6" selection-end-line="6" />
+              <folding>
+                <element signature="e#0#17#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -154,21 +187,22 @@
         <option value="$PROJECT_DIR$/test/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/Cluster.h" />
         <option value="$PROJECT_DIR$/Point.cpp" />
-        <option value="$PROJECT_DIR$/test/PointTest.cpp" />
         <option value="$PROJECT_DIR$/Point.h" />
         <option value="$PROJECT_DIR$/meanShift.h" />
-        <option value="$PROJECT_DIR$/ClustersBuilder.hpp" />
-        <option value="$PROJECT_DIR$/ClustersBuilder.cpp" />
-        <option value="$PROJECT_DIR$/test/ClustersBuilderTest.cpp" />
-        <option value="$PROJECT_DIR$/test/ClusterTest.cpp" />
-        <option value="$PROJECT_DIR$/Cluster.hpp" />
-        <option value="$PROJECT_DIR$/Cluster.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/batchTest.cpp" />
-        <option value="$PROJECT_DIR$/meanShift.cpp" />
-        <option value="$PROJECT_DIR$/test/meanShiftTest.cpp" />
         <option value="$PROJECT_DIR$/meanShift.hpp" />
         <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/Point.hpp" />
+        <option value="$PROJECT_DIR$/Cluster.cpp" />
+        <option value="$PROJECT_DIR$/test/ClusterTest.cpp" />
+        <option value="$PROJECT_DIR$/Cluster.hpp" />
+        <option value="$PROJECT_DIR$/test/ClustersBuilderTest.cpp" />
+        <option value="$PROJECT_DIR$/ClustersBuilder.hpp" />
+        <option value="$PROJECT_DIR$/test/meanShiftTest.cpp" />
+        <option value="$PROJECT_DIR$/ClustersBuilder.cpp" />
+        <option value="$PROJECT_DIR$/meanShift.cpp" />
+        <option value="$PROJECT_DIR$/test/PointTest.cpp" />
       </list>
     </option>
   </component>
@@ -189,6 +223,11 @@
             <path>
               <item name="MeanShift" type="b2602c69:ProjectViewProjectNode" />
               <item name="MeanShift" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MeanShift" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MeanShift" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -215,7 +254,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.meanshift">
+  <component name="RunManager" selected="Google Test.runAllTests">
     <configuration name="ClusterTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MeanShift" TARGET_NAME="ClusterTest" CONFIG_NAME="DebugSeq" RUN_TARGET_PROJECT_NAME="MeanShift" RUN_TARGET_NAME="ClusterTest" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -303,50 +342,50 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="runAllTests - 2018.12.03 at 10h 42m 59s.xml">
+    <history-entry file="MeanShiftTest_meanShiftTest - 2018.12.04 at 22h 43m 46s.xml">
+      <configuration name="MeanShiftTest.meanShiftTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="MeanShiftTest_meanShiftTest - 2018.12.04 at 22h 44m 15s.xml">
+      <configuration name="MeanShiftTest.meanShiftTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="MeanShiftTest_meanShiftTest - 2018.12.04 at 22h 45m 02s.xml">
+      <configuration name="MeanShiftTest.meanShiftTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="MeanShiftTest_meanShiftTest - 2018.12.04 at 22h 54m 53s.xml">
+      <configuration name="MeanShiftTest.meanShiftTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="MeanShiftTest_meanShiftTest - 2018.12.04 at 22h 55m 08s.xml">
+      <configuration name="MeanShiftTest.meanShiftTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="runAllTests - 2018.12.04 at 22h 55m 15s.xml">
       <configuration name="runAllTests" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="runAllTests - 2018.12.03 at 12h 58m 02s.xml">
+    <history-entry file="runAllTests - 2018.12.04 at 22h 55m 30s.xml">
       <configuration name="runAllTests" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="runAllTests - 2018.12.03 at 12h 58m 35s.xml">
+    <history-entry file="runAllTests - 2018.12.04 at 22h 55m 46s.xml">
       <configuration name="runAllTests" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="runAllTests - 2018.12.03 at 12h 59m 09s.xml">
+    <history-entry file="runAllTests - 2018.12.04 at 23h 07m 12s.xml">
       <configuration name="runAllTests" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="MeanShiftTest - 2018.12.03 at 12h 59m 59s.xml">
-      <configuration name="MeanShiftTest" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="MeanShiftTest - 2018.12.03 at 13h 00m 53s.xml">
-      <configuration name="MeanShiftTest" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="MeanShiftTest - 2018.12.03 at 13h 01m 32s.xml">
-      <configuration name="MeanShiftTest" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="MeanShiftTest - 2018.12.03 at 13h 01m 55s.xml">
-      <configuration name="MeanShiftTest" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="runAllTests - 2018.12.03 at 19h 23m 35s.xml">
-      <configuration name="runAllTests" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="runAllTests - 2018.12.04 at 20h 09m 42s.xml">
+    <history-entry file="runAllTests - 2018.12.04 at 23h 07m 57s.xml">
       <configuration name="runAllTests" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="103196000" />
+    <option name="totallyTimeSpent" value="109997000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="32" width="1922" height="1049" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22907725" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22907725" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32997763" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.31991053" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31991053" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39932886" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -382,21 +421,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/include/c++/7/bits/allocator.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="130" selection-start-line="130" selection-end-line="130" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/testCluster.csv" />
-    <entry file="file:///usr/include/c++/7/bits/stl_iterator.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="759" column="10" selection-start-line="759" selection-start-column="10" selection-end-line="759" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/test.csv">
       <provider selected="true" editor-type-id="csv-text-editor">
         <state relative-caret-position="27">
@@ -418,38 +443,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/PointTest.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="63" column="26" selection-start-line="63" selection-start-column="26" selection-end-line="63" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Point.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Point.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1651">
           <caret line="74" column="18" selection-start-line="74" selection-start-column="18" selection-end-line="74" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/ClustersBuilderTest.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="28" column="34" lean-forward="true" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ClustersBuilder.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="10" column="69" selection-start-line="10" selection-start-column="69" selection-end-line="10" selection-end-column="69" />
         </state>
       </provider>
     </entry>
@@ -460,41 +457,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/ClusterTest.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="20" column="28" lean-forward="true" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Cluster.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="18" column="70" selection-start-line="18" selection-start-column="70" selection-end-line="18" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Cluster.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/include/c++/7/bits/stl_vector.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="333" selection-start-line="333" selection-end-line="333" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ClustersBuilder.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1134">
-          <caret line="42" column="14" selection-start-line="42" selection-start-column="14" selection-end-line="42" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="351">
@@ -502,19 +464,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/meanShift.hpp">
+    <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="19" column="95" selection-start-line="19" selection-start-column="95" selection-end-line="19" selection-end-column="95" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/meanShiftTest.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="35" column="37" selection-start-line="35" selection-start-column="37" selection-end-line="35" selection-end-column="37" />
+        <state relative-caret-position="197">
+          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
           <folding>
-            <element signature="e#0#24#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#99#119#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -529,20 +485,161 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/meanShift.cpp">
+    <entry file="file://$PROJECT_DIR$/test/ClusterTest.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+        <state relative-caret-position="54">
+          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
+    <entry file="file://$PROJECT_DIR$/Cluster.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="26" column="50" selection-start-line="26" selection-start-column="50" selection-end-line="26" selection-end-column="50" />
+        <state relative-caret-position="-351">
+          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Cluster.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-71">
+          <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/ClustersBuilderTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="26" column="15" selection-start-line="26" selection-start-column="15" selection-end-line="26" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ClustersBuilder.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="29" column="4" lean-forward="true" selection-start-line="29" selection-start-column="4" selection-end-line="30" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/7/bits/stl_construct.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/7/bits/stl_iterator.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="779" selection-start-line="779" selection-end-line="779" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/7/bits/stl_uninitialized.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="100" selection-start-line="100" selection-end-line="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/7/bits/move.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="73" selection-start-line="73" selection-end-line="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/7/new">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="168" selection-start-line="168" selection-end-line="168" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Point.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meanShift.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="19" column="95" selection-start-line="19" selection-start-column="95" selection-end-line="19" selection-end-column="95" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/7/ext/alloc_traits.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="94" selection-start-line="94" selection-end-line="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/7/bits/alloc_traits.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="504" selection-start-line="504" selection-end-line="504" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/7/bits/allocator.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="133" selection-start-line="133" selection-end-line="133" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/7/ext/new_allocator.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="80" selection-start-line="80" selection-end-line="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/7/bits/stl_vector.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="333" selection-start-line="333" selection-end-line="333" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/meanShiftTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1107">
+          <caret line="41" selection-start-line="41" selection-end-line="41" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#99#119#0" expanded="true" />
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ClustersBuilder.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meanShift.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-100">
+          <caret line="55" column="57" selection-start-line="55" selection-start-column="57" selection-end-line="55" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/PointTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="37" column="6" selection-start-line="37" selection-start-column="6" selection-end-line="37" selection-end-column="6" />
+          <folding>
+            <element signature="e#550#605#0" expanded="true" />
           </folding>
         </state>
       </provider>
