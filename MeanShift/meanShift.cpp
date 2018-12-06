@@ -50,10 +50,12 @@ std::vector<Cluster> meanShift(std::vector<Point> points, double bandwidth, int 
 {
     ClustersBuilder builder = ClustersBuilder(points, 0.4);
     long j = 0;
-    long dimensions = points[0].dimensions();
+    unsigned long dimensions = (unsigned) points[0].dimensions();
     double radius = bandwidth * 3;
     while (!builder.stopShiftingAll() && j < MAX_ITERATIONS) {
-#pragma omp parallel for default(none) shared(j, points, dimensions, builder, bandwidth, radius) num_threads(threads)
+#pragma omp parallel for num_threads(threads) \
+default(none) shared(j, points, dimensions, builder, bandwidth, radius) \
+schedule(dynamic)
         for (long i = 0; i < points.size(); ++i) {
             if (builder.stopShifting(i))
                 continue;

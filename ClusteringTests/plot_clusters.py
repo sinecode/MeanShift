@@ -7,13 +7,11 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 
-MEAN_SHIFT_EXECUTABLE_PATH = '../MeanShift/cmake-build-releasepar/meanshift'
+EXECUTABLE = '../MeanShift/cmake-build-releasepar/meanshift'
 
 
 def main():
-    out = subprocess.check_call(
-        f'{MEAN_SHIFT_EXECUTABLE_PATH} {sys.argv[1]} {sys.argv[2]}', shell=True
-    )
+    out = subprocess.check_call([EXECUTABLE, sys.argv[1], sys.argv[2]])
     data = np.genfromtxt('out.csv', delimiter=',')
     num_clusters = int(np.max(data[:,-1] + 1))
     clusters = np.ndarray(shape=num_clusters, dtype=np.ndarray)

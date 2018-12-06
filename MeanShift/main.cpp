@@ -14,8 +14,8 @@
 
 int main(int argc, char **argv)
 {
-    if (argc < 3) {
-        std::cout << "Usage: meanshift csvfile bandwidth" << std::endl;
+    if (argc < 4) {
+        std::cout << "Usage: meanshift csvfile bandwidth threads" << std::endl;
         return -1;
     }
     std::cout << "File: " << argv[1] << std::endl;

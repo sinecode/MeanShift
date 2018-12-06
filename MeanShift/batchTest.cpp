@@ -18,6 +18,7 @@ int main(int argc, char **argv)
     double totalElapsedTime = 0.0;
     int num_threads = std::stoi(argv[1]);
 
+    std::cout << "===================================================" << std::endl;
     for (int i = 2; i < argc; i += 2) {
         std::cout << "---------------------------------------------------" << std::endl;
         std::cout << "File: " << argv[i] << std::endl;

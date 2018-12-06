@@ -4,13 +4,13 @@ import sklearn.datasets as datasets
 import pandas as pd
 
 
-TOTAL_POINTS = 10000
 DATASETS_DIR = './datasets'
 
 
-def generate_dataset(n_features, centers, file_name):
+def generate_dataset(points, n_features, centers, std, file_name):
     data, __ = datasets.make_blobs(
-        TOTAL_POINTS, n_features, centers, cluster_std=1, shuffle=True
+        points, n_features, centers, cluster_std=std, shuffle=True,
+        random_state=1000
     )
     pd.DataFrame(data).to_csv(
         os.path.join(DATASETS_DIR, file_name), header=False, index=False
@@ -20,10 +20,21 @@ def generate_dataset(n_features, centers, file_name):
 def main():
     # two dimensional datasets
     for c in range(1, 6):
-        generate_dataset(n_features=2, centers=c, file_name=f'data{c}.csv')
+        generate_dataset(
+            points=10000, n_features=2, centers=c, std=1,
+            file_name='data{}.csv'.format(c)
+        )
     # three dimensional datasets
     for c in range(1, 6):
-        generate_dataset(n_features=3, centers=c, file_name=f'data{c + 5}.csv')
+        generate_dataset(
+            points=10000, n_features=3, centers=c, std=1,
+            file_name='data{}.csv'.format(c + 5)
+        )
+    # random dataset
+    generate_dataset(
+        points=20000, n_features=3, centers=5, std=[1, 3, 7, 8, 9],
+        file_name='randData.csv'
+    )
 
 
 if __name__ == '__main__':
