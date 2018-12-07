@@ -16,10 +16,12 @@ ClustersBuilder::ClustersBuilder(const std::vector<Point> &originalPoints, float
     this->clusterEps = clusterEps;
 }
 
+
 Point &ClustersBuilder::getShiftedPoint(long index)
 {
     return shiftedPoints[index];
 }
+
 
 void ClustersBuilder::shiftPoint(const long index, const Point &newPosition)
 {
@@ -30,25 +32,30 @@ void ClustersBuilder::shiftPoint(const long index, const Point &newPosition)
         shiftedPoints[index] = newPosition;
 }
 
+
 bool ClustersBuilder::stopShifting(long index)
 {
     return !shifting[index];
 }
+
 
 bool ClustersBuilder::stopShiftingAll()
 {
     return numPointsStoppedShifting == originalPoints.size();
 }
 
+
 std::vector<Point>::iterator ClustersBuilder::begin()
 {
     return shiftedPoints.begin();
 }
 
+
 std::vector<Point>::iterator ClustersBuilder::end()
 {
     return shiftedPoints.end();
 }
+
 
 std::vector<Cluster> ClustersBuilder::buildClusters()
 {

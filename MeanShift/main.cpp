@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <chrono>
+#include <cstring>
 
 #ifdef _OPENMP
 
@@ -14,8 +15,8 @@
 
 int main(int argc, char **argv)
 {
-    if (argc < 4) {
-        std::cout << "Usage: meanshift csvfile bandwidth threads" << std::endl;
+    if (argc < 3 || argc > 5) {
+        std::cout << "Usage: meanshift csvfile bandwidth [--write-output filename]" << std::endl;
         return -1;
     }
     std::cout << "File: " << argv[1] << std::endl;
@@ -37,6 +38,7 @@ int main(int argc, char **argv)
     std::cout << "Number of clusters: " << clusters.size() << std::endl;
     std::cout << "Elapsed time: " << elapsedTime << " s" << std::endl;
 
-    writeClustersToCsv(clusters);
+    if (argc == 5 && std::strcmp(argv[3], "--write-output") == 0)
+        writeClustersToCsv(clusters, argv[4]);
     return 0;
 }

@@ -1,7 +1,4 @@
 #include <vector>
-#include <sstream>
-#include <fstream>
-#include <string>
 #include <iostream>
 #include <cmath>
 
@@ -11,51 +8,18 @@
 #include "meanShift.hpp"
 
 
-std::vector<Point> getPointsFromCsv(std::string fileName)
-{
-    std::vector<Point> points;
-
-    std::ifstream data(fileName);
-    std::string line;
-    while (std::getline(data, line)) {
-        std::stringstream lineStream(line);
-        std::string cell;
-        std::vector<double> point;
-        while (std::getline(lineStream, cell, ','))
-            point.push_back(stod(cell));
-        points.emplace_back(Point(point));
-    }
-
-    return points;
-}
-
-
-void writeClustersToCsv(std::vector<Cluster> &clusters)
-{
-    std::ofstream outputFile("out.csv");
-    int clusterId = 0;
-    for (auto &cluster : clusters) {
-        for (auto &point : cluster) {
-            for (auto &value : point) {
-                outputFile << value << ",";
-            }
-            outputFile << clusterId << "\n";
-        }
-        ++clusterId;
-    }
-}
-
-
-std::vector<Cluster> meanShift(std::vector<Point> points, double bandwidth, int threads)
+std::vector<Cluster> meanShift(std::vector<Point> points, double bandwidth)
 {
     ClustersBuilder builder = ClustersBuilder(points, 0.4);
     long j = 0;
     unsigned long dimensions = (unsigned) points[0].dimensions();
     double radius = bandwidth * 3;
     while (!builder.stopShiftingAll() && j < MAX_ITERATIONS) {
-#pragma omp parallel for num_threads(threads) \
+
+#pragma omp parallel for \
 default(none) shared(j, points, dimensions, builder, bandwidth, radius) \
 schedule(dynamic)
+
         for (long i = 0; i < points.size(); ++i) {
             if (builder.stopShifting(i))
                 continue;

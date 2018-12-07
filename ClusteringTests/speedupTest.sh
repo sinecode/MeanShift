@@ -1,6 +1,8 @@
 # go to the script's directory
 cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null
 
+rm -rf build*
+
 # compile the sequential version
 buildSeqDir="build-seq"
 mkdir -p $buildSeqDir
@@ -20,7 +22,7 @@ cd - > /dev/null
 parExePath="$buildParDir/batchtest"
 
 # create a .log file with name "date_time.log"
-logFile="$(date "+%d-%m-%Y_%T").log"
+logFile="$(date "+%d%m%Y_%H%M%S").log"
 datasetsDir="./datasets"
 
 # string to display finally with the results of the speedups

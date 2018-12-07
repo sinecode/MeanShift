@@ -11,6 +11,9 @@ target_link_libraries(clusterlib pointlib)
 add_library(clustersbuilderlib ClustersBuilder.cpp)
 target_link_libraries(clustersbuilderlib pointlib clusterlib)
 
+add_library(csvutilslib csvUtils.cpp)
+target_link_libraries(csvutilslib pointlib clusterlib)
+
 add_library(meanshiftlib meanShift.cpp)
 target_link_libraries(meanshiftlib clustersbuilderlib pointlib clusterlib)
 

@@ -13,10 +13,13 @@ target_link_libraries(ClusterTest gtest gtest_main clusterlib)
 add_executable(ClustersBuilderTest ClustersBuilderTest.cpp)
 target_link_libraries(ClustersBuilderTest gtest gtest_main clustersbuilderlib)
 
+add_executable(csvUtilsTest csvUtilsTest.cpp)
+target_link_libraries(csvUtilsTest gtest gtest_main csvutilslib)
+
 add_executable(meanShiftTest meanShiftTest.cpp)
 target_link_libraries(meanShiftTest gtest gtest_main meanshiftlib)
 
 add_executable(runAllTests runAllTests.cpp PointTest.cpp ClusterTest.cpp ClustersBuilderTest.cpp
-        meanShiftTest.cpp)
+        csvUtilsTest.cpp meanShiftTest.cpp)
 target_link_libraries(runAllTests gtest gtest_main pointlib clusterlib clustersbuilderlib
-        meanshiftlib)
+        csvutilslib meanshiftlib)
