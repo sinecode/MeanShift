@@ -11,8 +11,11 @@ EXECUTABLE = '../MeanShift/cmake-build-releasepar/meanshift'
 
 
 def main():
-    out = subprocess.check_call([EXECUTABLE, sys.argv[1], sys.argv[2]])
-    data = np.genfromtxt('out.csv', delimiter=',')
+    output_file = 'out'
+    out = subprocess.check_call([
+        EXECUTABLE, sys.argv[1], sys.argv[2], '--write-output', 'out'
+    ])
+    data = np.genfromtxt('{}.csv'.format(output_file), delimiter=',')
     num_clusters = int(np.max(data[:,-1] + 1))
     clusters = np.ndarray(shape=num_clusters, dtype=np.ndarray)
     for i in range(0, num_clusters):
@@ -30,7 +33,7 @@ def main():
         for cluster in clusters:
             ax.scatter(cluster[:,0], cluster[:,1], cluster[:,2], s=3)
     plt.show()
-    os.remove('out.csv')
+    os.remove('{}.csv'.format(output_file))
 
 
 if __name__ == '__main__':

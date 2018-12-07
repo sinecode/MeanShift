@@ -30,11 +30,6 @@ def main():
             points=10000, n_features=3, centers=c, std=1,
             file_name='data{}.csv'.format(c + 5)
         )
-    # random dataset
-    generate_dataset(
-        points=20000, n_features=3, centers=5, std=[1, 3, 7, 8, 9],
-        file_name='randData.csv'
-    )
 
 
 if __name__ == '__main__':

@@ -1,0 +1,83 @@
+#!/bin/bash
+#
+# Execute the sequential version of the algorithm and compare it with various
+# parallel versions with a different number of threads.
+# Calculate the speedup of each parallel execution, that is:
+#   time_sequential_version / time_parallel_version
+# Ideally, it should be equal to the number of threads used in the parallel
+# version (if that number is not greater of the number of CPUs).
+
+# create a .log file with name "date_time.log"
+LOG_FILE="$(date "+%d%m%Y_%H%M%S").log"
+DATASET="./datasets/data10.csv"
+BANDWIDTH=3
+
+# Execute the program and return its execution time
+#
+# $1 executable
+function executeProgram() {
+  "$1" "$DATASET" $BANDWIDTH >> "$LOG_FILE"
+
+  # the final output is "Elapsed time: <time> s", so it takes the string <time>
+  elapsedTime=$(tail -n 1 "$LOG_FILE" | awk '{print $3}')
+  echo $elapsedTime
+}
+
+# go to the script's directory
+cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null
+
+#rm -rf build*
+
+# compile the sequential version
+buildSeqDir="build-seq"
+mkdir -p $buildSeqDir
+cd $buildSeqDir
+cmake -DCMAKE_BUILD_TYPE=Release ../../MeanShift/
+make -j $(nproc)
+cd - > /dev/null
+seqExePath="$buildSeqDir/meanshift"
+
+# compile the parallel version with OpenMP
+buildParDir="build-par"
+mkdir -p $buildParDir
+cd $buildParDir
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-fopenmp ../../MeanShift/
+make -j $(nproc)
+cd - > /dev/null
+parExePath="$buildParDir/meanshift"
+
+# string to display finally with the results of the speedups
+endOutput="========================================================="
+endOutput="$endOutput\nNumber of processors: $(nproc)"
+endOutput="$endOutput\n"
+
+# execute the sequential batch test and write its output to the log file
+echo "Executing the sequential version..."
+timeSeq=$(executeProgram $seqExePath)
+endOutput="$endOutput\nSequential: $timeSeq s"
+echo "Sequential version: $timeSeq s"
+
+numProc=$(nproc)
+
+# If n is the number of CPUs of the system, execute the parallel version
+# with 2, 3, ..., n, n+1, n+2 threads
+for nthreads in $(seq 2 $(( $numProc + 2 ))); do
+  # execute the parallel batch test and append its output to the log file
+  echo "Executing the parallel version with $nthreads threads..."
+
+  export OMP_NUM_THREADS=$nthreads
+  timePar=$(executeProgram $parExePath)
+  echo "Parallel version with $nthreads threads: $timePar s"
+
+  # compute the speedup of the parallel version
+  speedup=$(echo $timeSeq $timePar | awk '{print $1/$2}')
+  endOutput="$endOutput\n==========================================="
+  endOutput="$endOutput\nParallel version with $nthreads threads: $timePar s"
+  endOutput="$endOutput\nSpeedup with $nthreads threads: $speedup"
+  echo "Speedup with $nthreads threads: $speedup" >> "$LOG_FILE"
+  echo "Speedup with $nthreads threads: $speedup"
+done
+
+unset OMP_NUM_THREADS
+
+printf %b "$endOutput\n" >> "$LOG_FILE"

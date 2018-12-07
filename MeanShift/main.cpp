@@ -3,13 +3,7 @@
 #include <chrono>
 #include <cstring>
 
-#ifdef _OPENMP
-
-#include <omp.h>
-
-#endif
-
-#include "Point.hpp"
+#include "csvUtils.hpp"
 #include "meanShift.hpp"
 
 
@@ -26,12 +20,8 @@ int main(int argc, char **argv)
     double bandwidth = std::stod(argv[2]);
 
     std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
-
-    int num_threads = 1;
-#ifdef _OPENMP
-    num_threads = omp_get_num_procs();
-#endif
-    std::vector<Cluster> clusters = meanShift(points, bandwidth, num_threads);
+    
+    std::vector<Cluster> clusters = meanShift(points, bandwidth);
 
     std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
     double elapsedTime = std::chrono::duration_cast<std::chrono::duration<double>>(end - start).count();
@@ -40,5 +30,7 @@ int main(int argc, char **argv)
 
     if (argc == 5 && std::strcmp(argv[3], "--write-output") == 0)
         writeClustersToCsv(clusters, argv[4]);
+    else
+        
     return 0;
 }

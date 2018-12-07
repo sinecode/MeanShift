@@ -18,9 +18,6 @@ add_library(meanshiftlib meanShift.cpp)
 target_link_libraries(meanshiftlib clustersbuilderlib pointlib clusterlib)
 
 add_executable(meanshift main.cpp)
-target_link_libraries(meanshift meanshiftlib)
-
-add_executable(batchtest batchTest.cpp)
-target_link_libraries(batchtest meanshiftlib)
+target_link_libraries(meanshift meanshiftlib csvutilslib)
 
 add_subdirectory(test)
