@@ -7,9 +7,9 @@
 class Point {
 
 public:
-    explicit Point(std::vector<double> values);
+    explicit Point(std::vector<float> values);
 
-    Point(std::initializer_list<double> values);
+    Point(std::initializer_list<float> values);
 
     Point() = default;
 
@@ -25,28 +25,28 @@ public:
 
     Point &operator-=(const Point &p);
 
-    Point operator*(double d);
+    Point operator*(float d);
 
-    Point &operator*=(double d);
+    Point &operator*=(float d);
 
-    Point operator/(double d);
+    Point operator/(float d);
 
-    Point &operator/=(double d);
+    Point &operator/=(float d);
 
-    double &operator[](long index);
+    float &operator[](long index);
 
-    const double &operator[](long index) const;
+    const float &operator[](long index) const;
 
     long dimensions() const;
 
-    std::vector<double>::iterator begin();
+    std::vector<float>::iterator begin();
 
-    std::vector<double>::iterator end();
+    std::vector<float>::iterator end();
 
-    double euclideanDistance(const Point &p) const;
+    float euclideanDistance(const Point &p) const;
 
 private:
-    std::vector<double> values;
+    std::vector<float> values;
 };
 
 #endif //MEANSHIFT_POINT_HPP

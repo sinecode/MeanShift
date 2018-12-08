@@ -4,7 +4,7 @@
 #include "../Point.hpp"
 
 
-#define ABS_ERROR 0.00000000001
+#define ABS_ERROR 0.000001
 
 
 TEST(ClusterTest, centroidTest)

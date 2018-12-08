@@ -20,7 +20,7 @@ public:
 
     std::vector<Point>::iterator end();
 
-    double getSse() const;
+    float getSse() const;
 
 private:
     std::vector<Point> points;

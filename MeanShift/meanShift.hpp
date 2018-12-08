@@ -10,7 +10,7 @@
 #define MAX_ITERATIONS 1000
 
 
-std::vector<Cluster> meanShift(std::vector<Point> points, double bandwidth);
+std::vector<Cluster> meanShift(std::vector<Point> points, float bandwidth);
 
 
 #endif //MEANSHIFT_MEANSHIFT_HPP

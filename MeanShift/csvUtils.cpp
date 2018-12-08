@@ -18,7 +18,7 @@ std::vector<Point> getPointsFromCsv(std::string fileName)
     while (std::getline(data, line)) {
         std::stringstream lineStream(line);
         std::string cell;
-        std::vector<double> point;
+        std::vector<float> point;
         while (std::getline(lineStream, cell, ','))
             point.push_back(stod(cell));
         points.emplace_back(Point(point));

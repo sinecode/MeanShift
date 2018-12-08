@@ -6,12 +6,12 @@
 #include "Point.hpp"
 
 
-Point::Point(std::vector<double> values)
+Point::Point(std::vector<float> values)
 {
     this->values = std::move(values);
 }
 
-Point::Point(std::initializer_list<double> values)
+Point::Point(std::initializer_list<float> values)
 {
     this->values.assign(values);
 }
@@ -56,38 +56,38 @@ Point &Point::operator-=(const Point &p)
     return *this;
 }
 
-Point Point::operator*(const double d)
+Point Point::operator*(const float d)
 {
     Point point(this->values);
     return point *= d;
 }
 
-Point &Point::operator*=(const double d)
+Point &Point::operator*=(const float d)
 {
     for (long i = 0; i < dimensions(); ++i)
         this->values[i] *= d;
     return *this;
 }
 
-Point Point::operator/(const double d)
+Point Point::operator/(const float d)
 {
     Point point(this->values);
     return point /= d;
 }
 
-Point &Point::operator/=(const double d)
+Point &Point::operator/=(const float d)
 {
     for (long i = 0; i < dimensions(); ++i)
         this->values[i] /= d;
     return *this;
 }
 
-double &Point::operator[](const long index)
+float &Point::operator[](const long index)
 {
     return values[index];
 }
 
-const double &Point::operator[](const long index) const
+const float &Point::operator[](const long index) const
 {
     return values[index];
 }
@@ -97,21 +97,21 @@ long Point::dimensions() const
     return values.size();
 }
 
-std::vector<double>::iterator Point::begin()
+std::vector<float>::iterator Point::begin()
 {
     return values.begin();
 }
 
-std::vector<double>::iterator Point::end()
+std::vector<float>::iterator Point::end()
 {
     return values.end();
 }
 
-double Point::euclideanDistance(const Point &p) const
+float Point::euclideanDistance(const Point &p) const
 {
     assert(p.dimensions() == dimensions());
 
-    double sum = 0.0;
+    float sum = 0.0;
     for (int i = 0; i < p.dimensions(); ++i)
         sum += std::pow(this->values[i] - p.values[i], 2);
     return std::sqrt(sum);

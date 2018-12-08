@@ -34,9 +34,9 @@ std::vector<Point>::iterator Cluster::end()
     return points.end();
 }
 
-double Cluster::getSse() const
+float Cluster::getSse() const
 {
-    double sum = 0.0;
+    float sum = 0.0;
     for (const Point &p : points)
         sum += std::pow(p.euclideanDistance(centroid), 2);
     return sum;
