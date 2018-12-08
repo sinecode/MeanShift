@@ -36,7 +36,7 @@ buildSeqDir="build-seq"
 mkdir -p $buildSeqDir
 cd $buildSeqDir
 cmake -DCMAKE_BUILD_TYPE=Release ../../MeanShift/
-make -j $(nproc)
+make meanshift
 cd - > /dev/null
 seqExePath="$buildSeqDir/meanshift"
 
@@ -45,7 +45,7 @@ buildParDir="build-par"
 mkdir -p $buildParDir
 cd $buildParDir
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-fopenmp ../../MeanShift/
-make -j $(nproc)
+make meanshift
 cd - > /dev/null
 parExePath="$buildParDir/meanshift"
 
