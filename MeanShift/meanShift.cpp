@@ -26,9 +26,10 @@ schedule(dynamic)
                 continue;
 
             Point newPosition(dimensions);
+            Point pointToShift = builder.getShiftedPoint(i);
             float totalWeight = 0.0;
             for (auto &point : points) {
-                float distance = builder.getShiftedPoint(i).euclideanDistance(point);
+                float distance = pointToShift.euclideanDistance(point);
                 if (distance <= radius) {
                     float gaussian = std::exp(-(distance * distance) / doubledSquaredBandwidth);
                     newPosition += point * gaussian;
