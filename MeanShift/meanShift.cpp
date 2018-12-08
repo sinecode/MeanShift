@@ -8,28 +8,29 @@
 #include "meanShift.hpp"
 
 
-std::vector<Cluster> meanShift(std::vector<Point> points, float bandwidth)
+std::vector<Cluster> meanShift(const std::vector<Point> &points, float bandwidth)
 {
     ClustersBuilder builder = ClustersBuilder(points, 0.4);
     long j = 0;
-    unsigned long dimensions = (unsigned) points[0].dimensions();
+    unsigned long dimensions = points[0].dimensions();
     float radius = bandwidth * 3;
+    float doubledSquaredBandwidth = 2 * bandwidth * bandwidth;
     while (!builder.stopShiftingAll() && j < MAX_ITERATIONS) {
 
 #pragma omp parallel for \
-default(none) shared(j, points, dimensions, builder, bandwidth, radius) \
+default(none) shared(j, points, dimensions, builder, bandwidth, radius, doubledSquaredBandwidth) \
 schedule(dynamic)
 
         for (long i = 0; i < points.size(); ++i) {
             if (builder.stopShifting(i))
                 continue;
 
-            Point newPosition(std::vector<float>(dimensions, 0));
+            Point newPosition(dimensions);
             float totalWeight = 0.0;
             for (auto &point : points) {
                 float distance = builder.getShiftedPoint(i).euclideanDistance(point);
                 if (distance <= radius) {
-                    float gaussian = std::exp(-(distance * distance) / (2 * bandwidth * bandwidth));
+                    float gaussian = std::exp(-(distance * distance) / doubledSquaredBandwidth);
                     newPosition += point * gaussian;
                     totalWeight += gaussian;
                 }

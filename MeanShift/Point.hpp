@@ -11,25 +11,27 @@ public:
 
     Point(std::initializer_list<float> values);
 
+    explicit Point(unsigned long dimensions);
+
     Point() = default;
 
     bool operator==(const Point &p) const;
 
     bool operator!=(const Point &p) const;
 
-    Point operator+(const Point &p);
+    Point operator+(const Point &p) const;
 
     Point &operator+=(const Point &p);
 
-    Point operator-(const Point &p);
+    Point operator-(const Point &p) const;
 
     Point &operator-=(const Point &p);
 
-    Point operator*(float d);
+    Point operator*(float d) const;
 
     Point &operator*=(float d);
 
-    Point operator/(float d);
+    Point operator/(float d) const;
 
     Point &operator/=(float d);
 
@@ -37,11 +39,11 @@ public:
 
     const float &operator[](long index) const;
 
-    long dimensions() const;
+    unsigned long dimensions() const;
 
-    std::vector<float>::iterator begin();
+    std::vector<float>::const_iterator begin() const;
 
-    std::vector<float>::iterator end();
+    std::vector<float>::const_iterator end() const;
 
     float euclideanDistance(const Point &p) const;
 

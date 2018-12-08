@@ -19,8 +19,6 @@ TEST(PointTest, equalOperatorTest)
 
 TEST(PointTest, plusOperatorTest)
 {
-    ASSERT_DEATH(Point({3}) + Point({3, 4}), "dimensions");
-
     Point p1{2, 3, 4};
     Point p2{1, 2, 1};
     Point expected{3, 5, 5};
@@ -33,8 +31,6 @@ TEST(PointTest, plusOperatorTest)
 
 TEST(PointTest, minusOperatorTest)
 {
-    ASSERT_DEATH(Point({3}) - Point({3, 4}), "dimensions");
-
     Point p1{2, 3, 4};
     Point p2{1, 2, 1};
     Point expected{1, 1, 3};
@@ -100,10 +96,7 @@ TEST(PointTest, iteratorTest)
 
 TEST(PointTest, euclideanDistanceTest)
 {
-    Point p{1};
-    ASSERT_DEATH(p.euclideanDistance({3, 4}), "dimensions");
-
-    p = {0, 0};
+    Point p{0, 0};
     ASSERT_NEAR(p.euclideanDistance({0, 0}), 0, ABS_ERROR);
 
     p = {8, 6};
