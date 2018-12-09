@@ -2,7 +2,7 @@
 
 C++ implementation of the [mean shift](https://en.wikipedia.org/wiki/Mean_shift) clustering algorithm with OpenMP.
 
-In this README you will find instructions about how to compile the program and how to execute it. In the directory `paper` there is a technical paper about the algorithm and the comparison of the sequential version with the parallel version.
+In this README you will find instructions about how to compile the program and how to execute it. In the directory `Paper` there is a technical paper about the algorithm and the comparison of the sequential version with the parallel version.
 
 ## Compiling
 
@@ -19,15 +19,17 @@ Then you can compile the program in two versions:
 
 * A sequential version:
 
-
-    $ cmake -DCMAKE_BUILD_TYPE=Release ../
-    $ make meanshift
+```
+$ cmake -DCMAKE_BUILD_TYPE=Release ../
+$ make meanshift
+```
 
 * A parallel version, with OpenMP:
 
-
-    $ cmake -DCMAKE_BUILD_TYPE=Release DCMAKE_CXX_FLAGS=-fopenmp ../
-    $ make meanshift
+```
+$ cmake -DCMAKE_BUILD_TYPE=Release DCMAKE_CXX_FLAGS=-fopenmp ../
+$ make meanshift
+```
 
 The parallel version will be much faster, because it uses the OpenMP directives to perform multithreading operations.
 
@@ -71,4 +73,4 @@ If we increase the bandwidth value to 10, then all the points will go in the sam
 
 The file `speedup` in `ClusteringTests` is a BASH script that execute the sequential version and then execute different parallel versions with a different number of threads to estimate the speedup obtained by parallelizing the algorithm.
 
-The results and the analysis of the speedup is described in the technical paper in the directory `paper`.
+The results and the analysis of the speedup is described in the technical paper in the directory `Paper`.
