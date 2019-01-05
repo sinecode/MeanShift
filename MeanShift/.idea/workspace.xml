@@ -26,15 +26,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66f9a511-8e79-4910-9ae5-b27667c781bd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClustersBuilder.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ClustersBuilder.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClustersBuilder.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/ClustersBuilder.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/meanShift.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/meanShift.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/ClustersBuilderTest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test/ClustersBuilderTest.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Paper/PC_course_project_template.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../Paper/PC_course_project_template.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Paper/PC_course_project_template.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../Paper/PC_course_project_template.tex" afterDir="false" />
-    </list>
+    <list default="true" id="66f9a511-8e79-4910-9ae5-b27667c781bd" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/cmake-build-release/" />
     <ignored path="$PROJECT_DIR$/cmake-build-releaseseq/" />
@@ -346,7 +338,7 @@
       <workItem from="1544389991451" duration="1166000" />
       <workItem from="1544391797344" duration="103000" />
       <workItem from="1544392287771" duration="320000" />
-      <workItem from="1546678852090" duration="3292000" />
+      <workItem from="1546678852090" duration="3980000" />
     </task>
     <servers />
   </component>
@@ -383,7 +375,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="141217000" />
+    <option name="totallyTimeSpent" value="141905000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">

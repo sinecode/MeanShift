@@ -122,8 +122,46 @@ Note that the only difference from the sequential version in \ref{MeanShiftAlgSe
 
 The clause \verb"schedule(dynamic)" is important because at the end of the computation, there will be some points that have stopped shifting, so they immediatly end the computation of the for loop. With the dynamic scheduling there will be a better distribution of the workload of each thread.
 
-\subsection{Speedup}
+\subsection{Speedup analysis}
 
+The speedup is computed with a script that first executes a sequential version, then it executes on the same data set differents parallel versions using a different number of threads. 
 
+Here is a table and a chart reporting the speedup of the parallel version with a different number of threads. The test was performed on a machine with an Intel Xeon CPU 2.00 \textit{GHz} with 8 cores on a data set of $10000$ points of three dimensions:
+\\
+\\
+\textbf{Sequential version}: 54.1719 \textit{s}
+\\
 
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc}
+\hline
+ \textbf{Threads} & \textbf{Time} (seconds) & \textbf{Speedup} \\
+\hline
+2 & 27.42 & 1.98 \\
+3 & 18.36 & 2.95 \\
+4 & 13.72 & 3.95 \\
+5 & 12.44 & 4.35 \\
+6 & 12.25 & 4.42 \\
+7 & 10.83 & 5.00 \\
+8 & 10.11 & 5.36 \\
+9 & 10.50 & 5.16 \\
+10 & 10.42 & 5.20 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=3.2in]{speedup.eps}
+\end{figure}
+
+The speedup seems to grow with three different patterns. From two threads to four threads the speeup is almost perfectly linear, from five to eight it seems to be sub-linear and over eight threads it stops growing.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=3.2in]{speedup_colors.eps}
+\end{figure}
+
+The explanation for these three different growing trends is immediate. The machine where the test was performed has the hyperthreading technology enabled: it shows eight cores but actually it has only four physical cores, the other four cores are virtual. In fact, from two to four threads the speedup is linear because each physical core has to execute a single thread. Using from five to eight threads can speed up the execution, but the speedup is no more perfectly linear, because there are more threads than physical cores. Finally over eight threads there is no more improvements in terms of speeds, on the contrary, it is slightly slower due to the overhead of the contex switches between threads.
 \end{document}
