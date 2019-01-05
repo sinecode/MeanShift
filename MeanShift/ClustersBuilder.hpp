@@ -14,9 +14,9 @@ public:
 
     void shiftPoint(long index, const Point &newPosition);
 
-    bool stopShifting(long index);
+    bool hasStoppedShifting(long index);
 
-    bool stopShiftingAll();
+    bool allPointsHaveStoppedShifting();
 
     std::vector<Point>::iterator begin();
 
@@ -30,8 +30,8 @@ private:
     // vector of booleans such that the element in position i is false if the i-th point
     // has stopped to shift
     std::vector<bool> shifting;
-    long numPointsStoppedShifting;
     float clusterEps;
+    float shiftingEps;
 };
 
 

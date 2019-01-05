@@ -1,4 +1,5 @@
 #include <vector>
+#include <algorithm>
 
 #include "Point.hpp"
 #include "Cluster.hpp"
@@ -12,8 +13,8 @@ ClustersBuilder::ClustersBuilder(const std::vector<Point> &originalPoints, float
     // vector of booleans such that the element in position i is false if the i-th point
     // has stopped to shift
     shifting = std::vector<bool>(originalPoints.size(), true);
-    numPointsStoppedShifting = 0;
     this->clusterEps = clusterEps;
+    this->shiftingEps = clusterEps / 10;
 }
 
 
@@ -25,23 +26,22 @@ Point &ClustersBuilder::getShiftedPoint(long index)
 
 void ClustersBuilder::shiftPoint(const long index, const Point &newPosition)
 {
-    if (newPosition.euclideanDistance(shiftedPoints[index]) <= clusterEps/10) {
+    if (newPosition.euclideanDistance(shiftedPoints[index]) <= shiftingEps)
         shifting[index] = false;
-        ++numPointsStoppedShifting;
-    } else
+    else
         shiftedPoints[index] = newPosition;
 }
 
 
-bool ClustersBuilder::stopShifting(long index)
+bool ClustersBuilder::hasStoppedShifting(long index)
 {
     return !shifting[index];
 }
 
 
-bool ClustersBuilder::stopShiftingAll()
+bool ClustersBuilder::allPointsHaveStoppedShifting()
 {
-    return numPointsStoppedShifting == originalPoints.size();
+    return std::none_of(shifting.begin(), shifting.end(), [](bool v) { return v; });
 }
 
 

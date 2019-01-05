@@ -11,18 +11,18 @@
 std::vector<Cluster> meanShift(const std::vector<Point> &points, float bandwidth)
 {
     ClustersBuilder builder = ClustersBuilder(points, 0.4);
-    long j = 0;
+    long iterations = 0;
     unsigned long dimensions = points[0].dimensions();
     float radius = bandwidth * 3;
     float doubledSquaredBandwidth = 2 * bandwidth * bandwidth;
-    while (!builder.stopShiftingAll() && j < MAX_ITERATIONS) {
+    while (!builder.allPointsHaveStoppedShifting() && iterations < MAX_ITERATIONS) {
 
-#pragma omp parallel for \
-default(none) shared(j, points, dimensions, builder, bandwidth, radius, doubledSquaredBandwidth) \
+#pragma omp parallel for default(none) \
+shared(points, dimensions, builder, bandwidth, radius, doubledSquaredBandwidth) \
 schedule(dynamic)
 
         for (long i = 0; i < points.size(); ++i) {
-            if (builder.stopShifting(i))
+            if (builder.hasStoppedShifting(i))
                 continue;
 
             Point newPosition(dimensions);
@@ -39,12 +39,11 @@ schedule(dynamic)
 
             // the new position of the point is the weighted average of its neighbors
             newPosition /= totalWeight;
-#pragma omp critical
             builder.shiftPoint(i, newPosition);
         }
-        ++j;
+        ++iterations;
     }
-    if (j == MAX_ITERATIONS)
+    if (iterations == MAX_ITERATIONS)
         std::cout << "WARNING: reached the maximum number of iterations" << std::endl;
     return builder.buildClusters();
 }

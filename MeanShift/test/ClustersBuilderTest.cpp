@@ -7,24 +7,24 @@ TEST(ClustersBuilderTest, stopShiftingTest)
 {
     std::vector<Point> points = {{1, 2}, {5, 5}};
     ClustersBuilder builder(points, 0);
-    ASSERT_FALSE(builder.stopShifting(0));
-    ASSERT_FALSE(builder.stopShifting(1));
-    ASSERT_FALSE(builder.stopShiftingAll());
+    ASSERT_FALSE(builder.hasStoppedShifting(0));
+    ASSERT_FALSE(builder.hasStoppedShifting(1));
+    ASSERT_FALSE(builder.allPointsHaveStoppedShifting());
 
     builder.shiftPoint(0, {2, 2});
-    ASSERT_FALSE(builder.stopShifting(0));
-    ASSERT_FALSE(builder.stopShifting(1));
-    ASSERT_FALSE(builder.stopShiftingAll());
+    ASSERT_FALSE(builder.hasStoppedShifting(0));
+    ASSERT_FALSE(builder.hasStoppedShifting(1));
+    ASSERT_FALSE(builder.allPointsHaveStoppedShifting());
 
     builder.shiftPoint(0, {2, 2});
-    ASSERT_TRUE(builder.stopShifting(0));
-    ASSERT_FALSE(builder.stopShifting(1));
-    ASSERT_FALSE(builder.stopShiftingAll());
+    ASSERT_TRUE(builder.hasStoppedShifting(0));
+    ASSERT_FALSE(builder.hasStoppedShifting(1));
+    ASSERT_FALSE(builder.allPointsHaveStoppedShifting());
 
     builder.shiftPoint(1, {5, 5});
-    ASSERT_TRUE(builder.stopShifting(0));
-    ASSERT_TRUE(builder.stopShifting(1));
-    ASSERT_TRUE(builder.stopShiftingAll());
+    ASSERT_TRUE(builder.hasStoppedShifting(0));
+    ASSERT_TRUE(builder.hasStoppedShifting(1));
+    ASSERT_TRUE(builder.allPointsHaveStoppedShifting());
 }
 
 
