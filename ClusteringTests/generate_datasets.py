@@ -30,6 +30,12 @@ def main():
             points=10000, n_features=3, centers=c, std=1,
             file_name='data{}.csv'.format(c + 5)
         )
+    # random datasets
+    for num, num_points in enumerate([10, 100, 1000, 10000]):
+        generate_dataset(
+            points=num_points, n_features=3, centers=1, std=30,
+            file_name=f'rand{num}.csv'
+        )
 
 
 if __name__ == '__main__':
