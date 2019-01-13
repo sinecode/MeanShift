@@ -19,7 +19,6 @@
 
 \cvprfinalcopy % *** Uncomment this line for the final submission
 
-\def\cvprPaperID{****} % *** Enter the CVPR Paper ID here
 \def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
 
 % Pages are numbered in submission mode, and unnumbered in camera-ready
@@ -68,7 +67,7 @@ x' = \dfrac{\sum_{x_i \in N(x)} k(dist(x,x_i)^2) x_i}{\sum_{x_i \in N(x)} k(dist
 
 The mean shift algorithm applies that formula to each point iteratively until they converge, that is until the position does not change.
 
-\subsection{The algorithm}
+\section{Sequential version}
 
 The algorithm is very simple: each point shifts towards the maxima of its underlying distribution. The algorithm ends when all the points have stopped shifting.
 
@@ -93,8 +92,11 @@ Here is the pseudocode of the core of the algorithm:
 
 To speed up the process, the shifting process of a point is stopped when the distance from its older position is less than an epsilon value specified by the user.
 
+The main data structures used by the algorithm are two lists. The first list contains all the original points in their original positions, the second list is where the new positions are stored after a shifting step. The list containing the original positions remains unchanged during the algorithm; at each step, the new position where to perform the shift is computed by reading the points in this list, so it is important to notice that each point perform its shifting operations completely independently from the other points. 
 
-\subsection{The parallel version}
+\section{Parallel version}
+
+\subsection{The algorithm}
 
 The mean shift algorithm is a embarrassingly parallel work: each point perform its shifting independently from the other points. This makes it the perfect case for using the OpenMP technology. In fact, with a single \verb"pragma" command it was possible to switch from a sequential version to a parallel version.
 
@@ -120,23 +122,124 @@ Here is the pseudocode of the parallel version of the core algorithm:
 
 Note that the only difference from the sequential version in \ref{MeanShiftAlgSeq} is the \verb"pragma" statement. That statement is placed just before the \verb"for" loop, in this way there is no need of any critical sections. If it had been placed before the \verb"while" loop, then the parallel algorithm would have been more complex introducing an overhead due to the synchronization between threads.
 
-The clause \verb"schedule(dynamic)" is important because at the end of the computation, there will be some points that have stopped shifting, so they immediatly end the computation of the for loop. With the dynamic scheduling there will be a better distribution of the workload of each thread.
+\subsection{Data structures}
 
-\subsection{Speedup analysis}
+The data structures used by the parallel algorithm are the same of the sequential version.
 
-The speedup is computed with a script that first executes a sequential version, then it executes on the same data set differents parallel versions using a different number of threads. 
+There is a list containing the original points that is shared among the threads. This list is never changed during the computation, so there is not need of any synchronization mechanism. 
 
-Here is a table and a chart reporting the speedup of the parallel version with a different number of threads. The test was performed on a machine with an Intel Xeon CPU 2.00 \textit{GHz} with 8 cores on a data set of $10000$ points of three dimensions:
-\\
-\\
-\textbf{Sequential version}: 54.1719 \textit{s}
-\\
+The other list, that one containing the new positions of the shifted points, is shared among the threads too, but also in this case no synchronizations are necessary because the parallelized section is the computation of the shifting and after each shifting step there is an implicit barrier at the end of the \verb"for" loop. At each step, each thread computes the new position of a set of points independently from the others.
+
+\subsection{Thread scheduling}
+
+Not all the points need the same number of steps to reach the final position. In the same dataset some point could converge very quickly while others could perform a larger number of shifting operations. That's why we have to make sure that each thread receives the same amount of workload.
+
+With OpenMP it is possible to change the workload of the \verb"for" loop assigned to each thread. By default, OpenMP uses a \textit{static scheduling}, where the entire \verb"for" loop is divided statically in chunks of equal size. This kind of scheduling is not optimal for this problem, because, as we have noticed before, each point perform a different number of steps depending on how fast it converges to the center of its cluster. So it could be happen that a thread finishes very soon its iterations and then it has to wait the other threads wasting computational resources.
+
+The best scheduling strategy for this algorithm is the \textit{dynamic scheduling}, where the iterations are assigned to the threads while the loop is executing. Assigning the workload to the threads in this way should ensure that each thread will never stop its execution waiting for the others. 
+
+To perform a dynamic scheduling we have to write in the \verb"pragma" statement the clause \verb"schedule(dynamic)". With that directive an interation is assigned to a thread as soon as the thread has finished the computation of the previously assigned iteration.
+
+We report a table containing the comparison between the executions of a parallel version with a static scheduling and a dynamic scheduling. The test was performed on a machine with an Intel Xeon CPU 2.00 \textit{GHz} with 8 cores on a data set of $50000$ points of three dimensions: 
 
 \begin{table}[H]
 \centering
 \begin{tabular}{ccc}
 \hline
- \textbf{Threads} & \textbf{Time} (seconds) & \textbf{Speedup} \\
+\textbf{Threads} & \textbf{Static} (\textit{seconds}) & \textbf{Dynamic} (\textit{seconds}) \\
+\hline
+2 & 703.729 & 695.051 \\
+3 & 467.874 & 465.511 \\
+4 & 351.299 & 345.102 \\
+5 & 378.612 & 325.376 \\
+6 & 320.762 & 306.645 \\
+7 & 300.665 & 289.901 \\
+8 & 277.214 & 277.058 \\
+\hline
+\end{tabular}
+\end{table}
+
+We can notice that the dynamic scheduling adoption leads to a faster execution because the workload is better distributed among the threads.
+
+\section{Speedup analysis}
+
+To compare the performance of a sequential algorithm with a parallel version, the main measure used is the \textit{speedup}, that is the ration between the execution time of the sequential version and the execution time of the parallel version with the same input.
+
+\begin{align}
+S = \dfrac{t_S}{t_P}
+\end{align}
+
+Ideally, the speedup should be the number of processor used to perform the parallel version.
+
+In this case, the speedup is computed with a script that first executes a sequential version, then it executes on the same data set differents parallel versions using a different number of threads.  In this section are reported some results obtained with datasets of different sizes.
+
+The tests were performed on a machine with an Intel Xeon CPU 2.00 \textit{GHz} with eight cores.
+
+\begin{table}[H]
+\begin{tabular}{c c c}
+\hline
+\textbf{Number of points} & \multicolumn{2}{l}{100} \\ 
+\hline
+\textbf{Sequential time} & \multicolumn{2}{l}{0.0060} \\
+\hline
+\textbf{Threads} & \textbf{Time} (seconds) & \textbf{Speedup} \\
+\hline
+2 & 0.0040 & 1.52 \\
+3 & 0.0035 & 1.74 \\
+4 & 0.0027 & 2.22 \\
+5 & 0.0024 & 2.47 \\
+6 & 0.0024 & 2.45 \\
+7 & 0.0025 & 2.35 \\
+8 & 0.0031 & 1.94 \\
+9 & 0.0047 & 1.29 \\
+10 & 0.0135 & 0.45 \\
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=3.2in]{fig/speedup100.eps}
+\end{figure}
+
+With an input size of 100 points, the speedup is very low due to the thread management overhead. With this relatively small input size it is not convenient to use a multithreading version of the algorithm.
+
+\begin{table}[H]
+\begin{tabular}{c c c}
+\hline
+\textbf{Number of points} & \multicolumn{2}{l}{1000} \\ 
+\hline
+\textbf{Sequential time} & \multicolumn{2}{l}{0.6094} \\
+\hline
+\textbf{Threads} & \textbf{Time} (seconds) & \textbf{Speedup} \\
+\hline
+2 & 0.2983 & 2.04 \\
+3 & 0.1998 & 3.05 \\
+4 & 0.1512 & 4.03 \\
+5 & 0.1424 & 4.28 \\
+6 & 0.1170 & 5.21 \\
+7 & 0.1073 & 5.68 \\
+8 & 0.0992 & 6.14 \\
+9 & 0.1015 & 6.00 \\
+10 & 0.0955 & 6.37 \\
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=3.2in]{fig/speedup1000.eps}
+\end{figure}
+
+Running the algorithm with an input size of 1000 make the parallel version run faster. The input size is large enough to get improvements by using a multithread version.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc}
+\hline
+\textbf{Number of points} & \multicolumn{2}{l}{10000} \\ 
+\hline
+\textbf{Sequential time} & \multicolumn{2}{l}{54.1719} \\
+\hline
+\textbf{Threads} & \textbf{Time} (seconds) & \textbf{Speedup} \\
 \hline
 2 & 27.42 & 1.98 \\
 3 & 18.36 & 2.95 \\
@@ -153,14 +256,70 @@ Here is a table and a chart reporting the speedup of the parallel version with a
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=3.2in]{speedup.eps}
+\includegraphics[width=3.2in]{fig/speedup10000.eps}
 \end{figure}
 
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc}
+\hline
+\textbf{Number of points} & \multicolumn{2}{l}{20000} \\ 
+\hline
+\textbf{Sequential time} & \multicolumn{2}{l}{228.45} \\
+\hline
+\textbf{Threads} & \textbf{Time} (seconds) & \textbf{Speedup} \\
+\hline
+2 & 115.01 & 1.98 \\
+3 & 76.06 & 3.00 \\
+4 & 57.09 & 4.00 \\
+5 & 52.99 & 4.31 \\
+6 & 50.14 & 4.55 \\
+7 & 47.09 & 4.58 \\
+8 & 44.46 & 5.13 \\
+9 & 45.09 & 5.07 \\
+10 & 44.88 & 5.09 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=3.2in]{fig/speedup20000.eps}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc}
+\hline
+\textbf{Number of points} & \multicolumn{2}{l}{50000} \\ 
+\hline
+\textbf{Sequential time} & \multicolumn{2}{l}{1398.49 \textit{s}} \\
+\hline
+\textbf{Threads} & \textbf{Time} (seconds) & \textbf{Speedup} \\
+\hline
+2 & 695.05 & 2.01 \\
+3 & 465.51 & 3.00 \\
+4 & 345.51 & 4.05 \\
+5 & 325.10 & 4.30 \\
+6 & 306.65 & 4.56 \\
+7 & 289.90 & 4.82 \\
+8 & 277.06 & 5.05 \\
+9 & 274.78 & 5.09 \\
+10 & 274.82 & 5.09 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=3.2in]{fig/speedup50000.eps}
+
+\end{figure}
 The speedup seems to grow with three different patterns. From two threads to four threads the speeup is almost perfectly linear, from five to eight it seems to be sub-linear and over eight threads it stops growing.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=3.2in]{speedup_colors.eps}
+\includegraphics[width=3.2in]{fig/speedup10000Colors.eps}
 \end{figure}
 
 The explanation for these three different growing trends is immediate. The machine where the test was performed has the hyperthreading technology enabled: it shows eight cores but actually it has only four physical cores, the other four cores are virtual. In fact, from two to four threads the speedup is linear because each physical core has to execute a single thread. Using from five to eight threads can speed up the execution, but the speedup is no more perfectly linear, because there are more threads than physical cores. Finally over eight threads there is no more improvements in terms of speeds, on the contrary, it is slightly slower due to the overhead of the contex switches between threads.
