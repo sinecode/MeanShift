@@ -171,7 +171,7 @@ S = \dfrac{t_S}{t_P}
 
 Ideally, the speedup should be the number of processor used to perform the parallel version.
 
-In this case, the speedup is computed with a script that first executes a sequential version, then it executes on the same data set differents parallel versions using a different number of threads.  In this section are reported some results obtained with datasets of different sizes.
+In this case, the speedup is computed with a script that first executes a sequential version, then it executes on the same data set differents parallel versions using a different number of threads. In this section are reported some results obtained with datasets of different sizes.
 
 The tests were performed on a machine with an Intel Xeon CPU 2.00 \textit{GHz} with eight cores.
 
@@ -323,4 +323,93 @@ The speedup seems to grow with three different patterns. From two threads to fou
 \end{figure}
 
 The explanation for these three different growing trends is immediate. The machine where the test was performed has the hyperthreading technology enabled: it shows eight cores but actually it has only four physical cores, the other four cores are virtual. In fact, from two to four threads the speedup is linear because each physical core has to execute a single thread. Using from five to eight threads can speed up the execution, but the speedup is no more perfectly linear, because there are more threads than physical cores. Finally over eight threads there is no more improvements in terms of speeds, on the contrary, it is slightly slower due to the overhead of the contex switches between threads.
+
+In all the previous benchmarks the bandwith parameter is set at 3. Here are reported some benchmarks results where the input size is fixed at 10000 and the bandwith parameter equals to 1, 2 and 10.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc}
+\hline
+\textbf{Bandwith} & \multicolumn{2}{l}{1} \\ 
+\hline
+\textbf{Sequential time} & \multicolumn{2}{l}{10.082 \textit{s}} \\
+\hline
+\textbf{Threads} & \textbf{Time} (seconds) & \textbf{Speedup} \\
+\hline
+2 & 5.30  & 1.90 \\
+3 & 3.54 & 2.84 \\
+4 & 2.83 & 3.565 \\
+5 & 2.23 & 4.52 \\
+6 & 1.91 & 5.27 \\
+7 & 1.90 & 5.31 \\
+8 & 2.03 & 4.97 \\
+9 & 1.92 & 5.24 \\
+10 & 1.95 & 5.18 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=3.2in]{fig/speedup1b.eps}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc}
+\hline
+\textbf{Bandwith} & \multicolumn{2}{l}{2} \\ 
+\hline
+\textbf{Sequential time} & \multicolumn{2}{l}{9.082 \textit{s}} \\
+\hline
+\textbf{Threads} & \textbf{Time} (seconds) & \textbf{Speedup} \\
+\hline
+2 & 4.86  & 1.91 \\
+3 & 3.27 & 2.83 \\
+4 & 2.45 & 3.78 \\
+5 & 1.96 & 4.72 \\
+6 & 1.96 & 4.74 \\
+7 & 1.65 & 5.61 \\
+8 & 1.59 & 5.81 \\
+9 & 1.62 & 5.71 \\
+10 & 1.80 & 5.16 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=3.2in]{fig/speedup2b.eps}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc}
+\hline
+\textbf{Bandwith} & \multicolumn{2}{l}{10} \\ 
+\hline
+\textbf{Sequential time} & \multicolumn{2}{l}{52.11 \textit{s}} \\
+\hline
+\textbf{Threads} & \textbf{Time} (seconds) & \textbf{Speedup} \\
+\hline
+2 & 26.27 & 1.98 \\
+3 & 17.58 & 2.96 \\
+4 & 13.41 & 3.88 \\
+5 & 12.14 & 4.29 \\
+6 & 11.67 & 4.47 \\
+7 & 10.73 & 4.85 \\
+8 & 10.16 & 5.13 \\
+9 & 10.22 & 5.10 \\
+10 & 10.07 & 5.18 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=3.2in]{fig/speedup10b.eps}
+\end{figure}
+
+The growing trends from one to four cores seem to be almost all the same for every value of the bandwith parameter. So we can conclude that if the dataset is big enough, the choice of the bandwith parameter will not influence the speedup.
+
 \end{document}
