@@ -240,7 +240,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Google Test.runAllTests">
+  <component name="RunManager" selected="Application.meanshift">
     <configuration name="ClusterTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MeanShift" TARGET_NAME="ClusterTest" CONFIG_NAME="DebugSeq" RUN_TARGET_PROJECT_NAME="MeanShift" RUN_TARGET_NAME="ClusterTest" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -251,7 +251,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MeanShiftTest.twoClusters" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MeanShift" TARGET_NAME="runAllTests" RUN_TARGET_PROJECT_NAME="MeanShift" RUN_TARGET_NAME="runAllTests" TEST_CLASS="MeanShiftTest" TEST_METHOD="twoClusters" TEST_MODE="SUITE_TEST">
+    <configuration name="MeanShiftTest.twoClusters" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MeanShift" TARGET_NAME="runAllTests" CONFIG_NAME="DebugSeq" RUN_TARGET_PROJECT_NAME="MeanShift" RUN_TARGET_NAME="runAllTests" TEST_CLASS="MeanShiftTest" TEST_METHOD="twoClusters" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
