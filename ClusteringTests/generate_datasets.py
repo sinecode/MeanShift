@@ -18,25 +18,38 @@ def generate_dataset(points, n_features, centers, std, file_name):
 
 
 def main():
+
+    dataset_num = 1
+
+    #######################################################
+    #### Datasets with std=1 and well defined clusters ####
+    #######################################################
+    
     # two dimensional datasets
     for c in range(1, 6):
         generate_dataset(
             points=10000, n_features=2, centers=c, std=1,
-            file_name='data{}.csv'.format(c)
+            file_name=f'data{dataset_num}.csv'
         )
+        dataset_num += 1
     # three dimensional datasets
     for c in range(1, 6):
         generate_dataset(
             points=10000, n_features=3, centers=c, std=1,
-            file_name='data{}.csv'.format(c + 5)
+            file_name=f'data{dataset_num}.csv'
         )
-    # random datasets
-    for num, num_points in enumerate([10, 100, 1000, 10000]):
+        dataset_num += 1
+    
+    #######################################################
+    ### Datasets with an increasing number of points ######
+    #######################################################
+    
+    for points in [100, 1000, 10000, 20000, 50000]: 
         generate_dataset(
-            points=num_points, n_features=3, centers=1, std=30,
-            file_name=f'rand{num}.csv'
+            points, n_features=3, centers=5, std=1,
+            file_name=f'data{dataset_num}.csv'
         )
-
+        dataset_num += 1
 
 if __name__ == '__main__':
     main()

@@ -10,7 +10,7 @@
 
 # create a .log file with name "date_time.log"
 LOG_FILE="$(date "+%d%m%Y_%H%M%S").log"
-DATASET="./datasets/rand1.csv"
+DATASET="./datasets/data12.csv"
 BANDWIDTH=3
 
 
