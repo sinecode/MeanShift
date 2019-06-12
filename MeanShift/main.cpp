@@ -20,7 +20,7 @@ int main(int argc, char **argv)
     float bandwidth = std::stod(argv[2]);
 
     std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
-    
+
     std::vector<Cluster> clusters = meanShift(points, bandwidth);
 
     std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
@@ -31,6 +31,6 @@ int main(int argc, char **argv)
     if (argc == 5 && std::strcmp(argv[3], "--write-output") == 0)
         writeClustersToCsv(clusters, argv[4]);
     else
-        
+
     return 0;
 }

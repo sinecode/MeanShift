@@ -78,13 +78,13 @@ Here is the pseudocode of the core of the algorithm:
 \caption{Mean shift core}
 \begin{algorithmic}
 
-	\While{allPointsHaveStoppedShifting()}
-    		\For{each point $p$}
-    			\If{hasStoppedShifting($p$)}
-    				\State \textbf{continue}
-    			\EndIf
-    		\State shift($p$)
-    		\EndFor
+    \While{allPointsHaveStoppedShifting()}
+            \For{each point $p$}
+                \If{hasStoppedShifting($p$)}
+                    \State \textbf{continue}
+                \EndIf
+            \State shift($p$)
+            \EndFor
     \EndWhile
 
 \end{algorithmic}
@@ -92,7 +92,7 @@ Here is the pseudocode of the core of the algorithm:
 
 To speed up the process, the shifting process of a point is stopped when the distance from its older position is less than an epsilon value specified by the user.
 
-The main data structures used by the algorithm are two lists. The first list contains all the original points in their original positions, the second list is where the new positions are stored after a shifting step. The list containing the original positions remains unchanged during the algorithm; at each step, the new position where to perform the shift is computed by reading the points in this list, so it is important to notice that each point perform its shifting operations completely independently from the other points. 
+The main data structures used by the algorithm are two lists. The first list contains all the original points in their original positions, the second list is where the new positions are stored after a shifting step. The list containing the original positions remains unchanged during the algorithm; at each step, the new position where to perform the shift is computed by reading the points in this list, so it is important to notice that each point perform its shifting operations completely independently from the other points.
 
 \section{Parallel version}
 
@@ -107,14 +107,14 @@ Here is the pseudocode of the parallel version of the core algorithm:
 \caption{Mean shift core parallel}
 \begin{algorithmic}
 
-	\While{allPointsHaveStoppedShifting()}
-		\State \#pragma omp parallel for schedule(dynamic)
-    		\For{each point $p$}
-    			\If{hasStoppedShifting($p$)}
-    				\State \textbf{continue}
-    			\EndIf
-    		\State shift($p$)
-    		\EndFor
+    \While{allPointsHaveStoppedShifting()}
+        \State \#pragma omp parallel for schedule(dynamic)
+            \For{each point $p$}
+                \If{hasStoppedShifting($p$)}
+                    \State \textbf{continue}
+                \EndIf
+            \State shift($p$)
+            \EndFor
     \EndWhile
 
 \end{algorithmic}
@@ -126,7 +126,7 @@ Note that the only difference from the sequential version in \ref{MeanShiftAlgSe
 
 The data structures used by the parallel algorithm are the same of the sequential version.
 
-There is a list containing the original points that is shared among the threads. This list is never changed during the computation, so there is not need of any synchronization mechanism. 
+There is a list containing the original points that is shared among the threads. This list is never changed during the computation, so there is not need of any synchronization mechanism.
 
 The other list, that one containing the new positions of the shifted points, is shared among the threads too, but also in this case no synchronizations are necessary because the parallelized section is the computation of the shifting and after each shifting step there is an implicit barrier at the end of the \verb"for" loop. At each step, each thread computes the new position of a set of points independently from the others.
 
@@ -136,11 +136,11 @@ Not all the points need the same number of steps to reach the final position. In
 
 With OpenMP it is possible to change the workload of the \verb"for" loop assigned to each thread. By default, OpenMP uses a \textit{static scheduling}, where the entire \verb"for" loop is divided statically in chunks of equal size. This kind of scheduling is not optimal for this problem, because, as we have noticed before, each point perform a different number of steps depending on how fast it converges to the center of its cluster. So it could be happen that a thread finishes very soon its iterations and then it has to wait the other threads wasting computational resources.
 
-The best scheduling strategy for this algorithm is the \textit{dynamic scheduling}, where the iterations are assigned to the threads while the loop is executing. Assigning the workload to the threads in this way should ensure that each thread will never stop its execution waiting for the others. 
+The best scheduling strategy for this algorithm is the \textit{dynamic scheduling}, where the iterations are assigned to the threads while the loop is executing. Assigning the workload to the threads in this way should ensure that each thread will never stop its execution waiting for the others.
 
 To perform a dynamic scheduling we have to write in the \verb"pragma" statement the clause \verb"schedule(dynamic)". With that directive an interation is assigned to a thread as soon as the thread has finished the computation of the previously assigned iteration.
 
-We report a table containing the comparison between the executions of a parallel version with a static scheduling and a dynamic scheduling. The test was performed on a machine with an Intel Xeon CPU 2.00 \textit{GHz} with 8 cores on a data set of $50000$ points of three dimensions: 
+We report a table containing the comparison between the executions of a parallel version with a static scheduling and a dynamic scheduling. The test was performed on a machine with an Intel Xeon CPU 2.00 \textit{GHz} with 8 cores on a data set of $50000$ points of three dimensions:
 
 \begin{table}[H]
 \centering
@@ -178,7 +178,7 @@ The tests were performed on a machine with an Intel Xeon CPU 2.00 \textit{GHz} w
 \begin{table}[H]
 \begin{tabular}{c c c}
 \hline
-\textbf{Number of points} & \multicolumn{2}{l}{100} \\ 
+\textbf{Number of points} & \multicolumn{2}{l}{100} \\
 \hline
 \textbf{Sequential time} & \multicolumn{2}{l}{0.0060} \\
 \hline
@@ -206,7 +206,7 @@ With an input size of 100 points, the speedup is very low due to the thread mana
 \begin{table}[H]
 \begin{tabular}{c c c}
 \hline
-\textbf{Number of points} & \multicolumn{2}{l}{1000} \\ 
+\textbf{Number of points} & \multicolumn{2}{l}{1000} \\
 \hline
 \textbf{Sequential time} & \multicolumn{2}{l}{0.6094} \\
 \hline
@@ -235,7 +235,7 @@ Running the algorithm with an input size of 1000 make the parallel version run f
 \centering
 \begin{tabular}{ccc}
 \hline
-\textbf{Number of points} & \multicolumn{2}{l}{10000} \\ 
+\textbf{Number of points} & \multicolumn{2}{l}{10000} \\
 \hline
 \textbf{Sequential time} & \multicolumn{2}{l}{54.1719} \\
 \hline
@@ -263,7 +263,7 @@ Running the algorithm with an input size of 1000 make the parallel version run f
 \centering
 \begin{tabular}{ccc}
 \hline
-\textbf{Number of points} & \multicolumn{2}{l}{20000} \\ 
+\textbf{Number of points} & \multicolumn{2}{l}{20000} \\
 \hline
 \textbf{Sequential time} & \multicolumn{2}{l}{228.45} \\
 \hline
@@ -291,7 +291,7 @@ Running the algorithm with an input size of 1000 make the parallel version run f
 \centering
 \begin{tabular}{ccc}
 \hline
-\textbf{Number of points} & \multicolumn{2}{l}{50000} \\ 
+\textbf{Number of points} & \multicolumn{2}{l}{50000} \\
 \hline
 \textbf{Sequential time} & \multicolumn{2}{l}{1398.49 \textit{s}} \\
 \hline
@@ -330,7 +330,7 @@ In all the previous benchmarks the bandwith parameter is set at 3. Here are repo
 \centering
 \begin{tabular}{ccc}
 \hline
-\textbf{Bandwith} & \multicolumn{2}{l}{1} \\ 
+\textbf{Bandwith} & \multicolumn{2}{l}{1} \\
 \hline
 \textbf{Sequential time} & \multicolumn{2}{l}{10.082 \textit{s}} \\
 \hline
@@ -358,7 +358,7 @@ In all the previous benchmarks the bandwith parameter is set at 3. Here are repo
 \centering
 \begin{tabular}{ccc}
 \hline
-\textbf{Bandwith} & \multicolumn{2}{l}{2} \\ 
+\textbf{Bandwith} & \multicolumn{2}{l}{2} \\
 \hline
 \textbf{Sequential time} & \multicolumn{2}{l}{9.082 \textit{s}} \\
 \hline
@@ -386,7 +386,7 @@ In all the previous benchmarks the bandwith parameter is set at 3. Here are repo
 \centering
 \begin{tabular}{ccc}
 \hline
-\textbf{Bandwith} & \multicolumn{2}{l}{10} \\ 
+\textbf{Bandwith} & \multicolumn{2}{l}{10} \\
 \hline
 \textbf{Sequential time} & \multicolumn{2}{l}{52.11 \textit{s}} \\
 \hline

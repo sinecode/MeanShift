@@ -1,6 +1,18 @@
 *build*
 *.log
 codeStyles
+
+### LaTeX ###
+## Core latex/pdflatex auxiliary files:
 *.aux
-*.gz
-*.swp
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb

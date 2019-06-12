@@ -65,9 +65,9 @@ numProc=$(nproc)
 # If n is the number of CPUs of the system, execute the parallel version
 # with 2, 3, ..., n, n+1, n+2 threads
 for nthreads in $(seq 2 $(( $numProc + 2 ))); do
-  
+
   sleep 20  # sleep 20 seconds to get better performances
-	
+
   # execute the parallel batch test and append its output to the log file
   echo "Executing the parallel version with $nthreads threads..."
 
