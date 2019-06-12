@@ -6,8 +6,7 @@
 #include "ClustersBuilder.hpp"
 
 
-ClustersBuilder::ClustersBuilder(const std::vector<Point> &originalPoints, float clusterEps)
-{
+ClustersBuilder::ClustersBuilder(const std::vector<Point> &originalPoints, float clusterEps) {
     this->originalPoints = originalPoints;
     shiftedPoints = originalPoints;
     // vector of booleans such that the element in position i is false if the i-th point
@@ -18,14 +17,12 @@ ClustersBuilder::ClustersBuilder(const std::vector<Point> &originalPoints, float
 }
 
 
-Point &ClustersBuilder::getShiftedPoint(long index)
-{
+Point &ClustersBuilder::getShiftedPoint(long index) {
     return shiftedPoints[index];
 }
 
 
-void ClustersBuilder::shiftPoint(const long index, const Point &newPosition)
-{
+void ClustersBuilder::shiftPoint(const long index, const Point &newPosition) {
     if (newPosition.euclideanDistance(shiftedPoints[index]) <= shiftingEps)
         shifting[index] = false;
     else
@@ -33,32 +30,27 @@ void ClustersBuilder::shiftPoint(const long index, const Point &newPosition)
 }
 
 
-bool ClustersBuilder::hasStoppedShifting(long index)
-{
+bool ClustersBuilder::hasStoppedShifting(long index) {
     return !shifting[index];
 }
 
 
-bool ClustersBuilder::allPointsHaveStoppedShifting()
-{
+bool ClustersBuilder::allPointsHaveStoppedShifting() {
     return std::none_of(shifting.begin(), shifting.end(), [](bool v) { return v; });
 }
 
 
-std::vector<Point>::iterator ClustersBuilder::begin()
-{
+std::vector<Point>::iterator ClustersBuilder::begin() {
     return shiftedPoints.begin();
 }
 
 
-std::vector<Point>::iterator ClustersBuilder::end()
-{
+std::vector<Point>::iterator ClustersBuilder::end() {
     return shiftedPoints.end();
 }
 
 
-std::vector<Cluster> ClustersBuilder::buildClusters()
-{
+std::vector<Cluster> ClustersBuilder::buildClusters() {
     std::vector<Cluster> clusters;
 
     // shifted points with distance minor or equal than clusterEps will go in the same cluster

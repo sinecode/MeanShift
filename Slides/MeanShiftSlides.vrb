@@ -1,0 +1,18 @@
+\frametitle{Sequential implementation}
+
+\begin{algorithm}
+\caption{Mean shift core}
+\begin{algorithmic}
+
+    \While{allPointsHaveStoppedShifting()}
+            \For{each point $p$}
+                \If{hasStoppedShifting($p$)}
+                    \State \textbf{continue}
+                \EndIf
+            \State shift($p$)
+            \EndFor
+    \EndWhile
+
+\end{algorithmic}
+\end{algorithm}
+

@@ -1,6 +1,8 @@
 \documentclass{beamer}
 
 \usepackage[utf8]{inputenc}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 
 \usetheme[%
     numbering=fraction,
@@ -33,11 +35,66 @@
 
 \section{The Mean Shift Clustering}
 
-\begin{frame}{First slide}
+\begin{frame}{Mean Shift key concepts}
+
+\begin{itemize}
+\item
+Non-parametric technique to find the maxima of a density function.
+\item
+At each step, a \textit{kernel function} is applied to each point that causes the points to shift in the direction of the local maxima determined by the kernel.
+\end{itemize}
+
 \end{frame}
 
 
-\begin{frame}{Second slide}
+\begin{frame}{Gaussian Kernel}
+
+\begin{itemize}
+\item
+There are many different types of kernel, the most used is the \textit{Gaussian kernel}:
+
+\begin{align*}
+k(x) =  e^{-\dfrac{x}{2\sigma^2}}
+\end{align*}
+\item
+The standard deviation $\sigma$ is the bandwidth parameter, with a high bandwith value you will get a few large clusters and vice versa.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Mean Shift Clustering}
+Suppose $x$ is a point to be shifted and $N(x)$ are the sets of points near to that point. Let $dist(x, x_i)$ be the distance from the point $x$ to the point $x_i$. The new position $x'$ where $x$ has to be shifted is computed as follows:
+
+\begin{align*}
+x' = \dfrac{\sum_{x_i \in N(x)} k(dist(x,x_i)^2) x_i}{\sum_{x_i \in N(x)} k(dist(x, x_i)^2)}
+\end{align*}
+
+The mean shift algorithm applies that formula to each point iteratively until they converge, that is until the position does not change.
+\end{frame}
+
+
+\section{Sequential implementation}
+
+
+\begin{frame}{Sequential implementation}
+
+\begin{algorithm}[H]
+\caption{Mean shift core}
+\begin{algorithmic}[1]
+
+    \While{allPointsHaveStoppedShifting()}
+            \For{each point $p$}
+                \If{hasStoppedShifting($p$)}
+                    \State \textbf{continue}
+                \EndIf
+            \State shift($p$)
+            \EndFor
+    \EndWhile
+
+\end{algorithmic}
+\end{algorithm}
+
 \end{frame}
 
 

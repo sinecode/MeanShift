@@ -8,8 +8,7 @@
 #include "meanShift.hpp"
 
 
-std::vector<Cluster> meanShift(const std::vector<Point> &points, float bandwidth)
-{
+std::vector<Cluster> meanShift(const std::vector<Point> &points, float bandwidth) {
     ClustersBuilder builder = ClustersBuilder(points, 0.4);
     long iterations = 0;
     unsigned long dimensions = points[0].dimensions();

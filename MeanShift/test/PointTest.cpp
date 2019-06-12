@@ -6,8 +6,7 @@
 #define ABS_ERROR 0.0000000001
 
 
-TEST(PointTest, equalOperatorTest)
-{
+TEST(PointTest, equalOperatorTest) {
     Point p1{3, 4, 5};
     Point p2{3, 4, 5};
     ASSERT_EQ(p1, p2);
@@ -17,8 +16,7 @@ TEST(PointTest, equalOperatorTest)
 }
 
 
-TEST(PointTest, plusOperatorTest)
-{
+TEST(PointTest, plusOperatorTest) {
     Point p1{2, 3, 4};
     Point p2{1, 2, 1};
     Point expected{3, 5, 5};
@@ -29,8 +27,7 @@ TEST(PointTest, plusOperatorTest)
 }
 
 
-TEST(PointTest, minusOperatorTest)
-{
+TEST(PointTest, minusOperatorTest) {
     Point p1{2, 3, 4};
     Point p2{1, 2, 1};
     Point expected{1, 1, 3};
@@ -41,8 +38,7 @@ TEST(PointTest, minusOperatorTest)
 }
 
 
-TEST(PointTest, productOperatorTest)
-{
+TEST(PointTest, productOperatorTest) {
     Point point{2, 3, 4};
     double d = 3;
     Point expected{6, 9, 12};
@@ -53,8 +49,7 @@ TEST(PointTest, productOperatorTest)
 }
 
 
-TEST(PointTest, divisionOperatorTest)
-{
+TEST(PointTest, divisionOperatorTest) {
     Point point{3, 6, 12};
     double d = 3;
     Point expected{1, 2, 4};
@@ -65,8 +60,7 @@ TEST(PointTest, divisionOperatorTest)
 }
 
 
-TEST(PointTest, subscriptOperatorTest)
-{
+TEST(PointTest, subscriptOperatorTest) {
     Point p{2, 3, 4};
     ASSERT_EQ(p[0], 2);
     ASSERT_EQ(p[1], 3);
@@ -79,23 +73,20 @@ TEST(PointTest, subscriptOperatorTest)
 }
 
 
-TEST(PointTest, dimensionsTest)
-{
+TEST(PointTest, dimensionsTest) {
     Point point{3.4, 5.6, 3.2};
     ASSERT_EQ(point.dimensions(), 3);
 }
 
 
-TEST(PointTest, iteratorTest)
-{
+TEST(PointTest, iteratorTest) {
     Point point{5, 5, 5};
     for (auto value : point)
         ASSERT_EQ(value, 5);
 }
 
 
-TEST(PointTest, euclideanDistanceTest)
-{
+TEST(PointTest, euclideanDistanceTest) {
     Point p{0, 0};
     ASSERT_NEAR(p.euclideanDistance({0, 0}), 0, ABS_ERROR);
 
