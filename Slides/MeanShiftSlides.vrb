@@ -1,18 +1,9 @@
-\frametitle{Sequential implementation}
+\frametitle{Dynamic scheduling}
 
-\begin{algorithm}
-\caption{Mean shift core}
-\begin{algorithmic}
-
-    \While{allPointsHaveStoppedShifting()}
-            \For{each point $p$}
-                \If{hasStoppedShifting($p$)}
-                    \State \textbf{continue}
-                \EndIf
-            \State shift($p$)
-            \EndFor
-    \EndWhile
-
-\end{algorithmic}
-\end{algorithm}
+\begin{itemize}
+\item
+The best scheduling strategy for this algorithm is the \textit{dynamic scheduling}, where the iterations are assigned to the threads while the loop is executing.
+\item
+To perform a dynamic scheduling we have to write in the \verb"pragma" statement the clause \verb"schedule(dynamic)".
+\end{itemize}
 
