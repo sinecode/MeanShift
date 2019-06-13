@@ -26,12 +26,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66f9a511-8e79-4910-9ae5-b27667c781bd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Slides/MeanShiftSlides.nav" beforeDir="false" afterPath="$PROJECT_DIR$/../Slides/MeanShiftSlides.nav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Slides/MeanShiftSlides.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../Slides/MeanShiftSlides.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Slides/MeanShiftSlides.tex" beforeDir="false" afterPath="$PROJECT_DIR$/../Slides/MeanShiftSlides.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Slides/MeanShiftSlides.vrb" beforeDir="false" afterPath="$PROJECT_DIR$/../Slides/MeanShiftSlides.vrb" afterDir="false" />
-    </list>
+    <list default="true" id="66f9a511-8e79-4910-9ae5-b27667c781bd" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/cmake-build-release/" />
     <ignored path="$PROJECT_DIR$/cmake-build-releaseseq/" />
@@ -366,7 +361,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="32" width="1922" height="1049" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25804722" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
