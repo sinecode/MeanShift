@@ -18,24 +18,24 @@ Otherwise, go to the `MeanShift` directory, create a build folder and change
 directory to that folder:
 
 
-    $ cd Meanshift
-    $ mkdir build
-    $ cd build
+    cd Meanshift
+    mkdir build
+    cd build
 
 Then you can compile the program in two versions:
 
 * A sequential version:
 
 ```
-$ cmake -DCMAKE_BUILD_TYPE=Release ../
-$ make meanshift
+cmake -DCMAKE_BUILD_TYPE=Release ../
+make meanshift
 ```
 
 * A parallel version, with OpenMP:
 
 ```
-$ cmake -DCMAKE_BUILD_TYPE=Release DCMAKE_CXX_FLAGS=-fopenmp ../
-$ make meanshift
+cmake -DCMAKE_BUILD_TYPE=Release DCMAKE_CXX_FLAGS=-fopenmp ../
+make meanshift
 ```
 
 The parallel version will be much faster, because it uses the OpenMP
@@ -71,7 +71,7 @@ blobs with standard deviation 1.
 If we execute the mean shift algorithm with bandwidth 1 we get exactly the
 three clusters:
 
-    $ python plot_clusters datasets/data8.csv 1
+    $ python plot_clusters.py datasets/data8.csv 1
     File: datasets/data8.csv
     Number of points: 10000
     Number of dimensions: 3
